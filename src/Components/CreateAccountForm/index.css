@@ -1,0 +1,19 @@
+.create-account-container {
+    height: 75%;
+    width: 60%;
+}
+
+.login-form-title {
+    color: black;
+    margin-bottom: 5%;
+}
+
+.btn {
+    width: 100% !important;
+    background-color: black !important;
+    border-color: black !important;
+}
+
+.form-group {
+    margin-bottom: 3%;
+}
