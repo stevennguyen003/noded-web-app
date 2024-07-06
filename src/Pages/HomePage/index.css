@@ -44,12 +44,32 @@
     background-color: gray;
     margin: auto;
     border-radius: 30px;
-    justify-content: center;
+    flex-direction: column;
 }
 
 .groupHeader {
-    width: 90%;
-    height: 10%;
+    width: 100%;
+    height: 15%;
     background-color: beige;
 }
 
+.leaderInfo {
+    margin-top: 8vh;
+    width: 50%;
+    height: 30%;
+    background-color: beige;
+    align-self: center;
+}
+.quizInfo {
+    width: 30%;
+    height: 10%;
+    background-color: beige;
+    align-self: center;
+    margin-top: 8vh;
+}
+.quizMenu {
+    width: 100%;
+    height: 50%;
+    background-color: beige;
+    margin-top: 8vh;
+}
