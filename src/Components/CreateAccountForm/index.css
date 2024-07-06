@@ -1,6 +1,8 @@
 .create-account-container {
     height: 75%;
     width: 60%;
+    display: flex;
+    flex-direction: column;
 }
 
 .login-form-title {
@@ -8,12 +10,29 @@
     margin-bottom: 5%;
 }
 
+.create-account-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 .btn {
     width: 100% !important;
     background-color: black !important;
     border-color: black !important;
+    margin-top: 5%;
 }
 
 .form-group {
-    margin-bottom: 3%;
+    margin-top: 3%;
+}
+
+.error-message {
+    color: rgb(183, 15, 15);
+    margin-top: 1%;
 }
