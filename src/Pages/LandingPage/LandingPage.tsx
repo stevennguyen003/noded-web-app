@@ -7,9 +7,6 @@ function LandingPage() {
             <div className="login-panel-container">
                 <CreateAccountForm/>
             </div>
-            <div className="galaxy-panel-container">
-
-            </div>
         </div>
     );
 }

@@ -1,14 +1,16 @@
 import axios from "axios";
 
 // HARDCODED FOR NOW
-export const BASE_API = "http://localhost:4000";
-export const USERS_API = `${BASE_API}/api/users`;
+export const USERS_API = `http://localhost:4000/api/users`;
 
 export interface User {
     _id: string;
     username: string;
     password: string;
+    firstName: string;
+    lastName: string;
     email: string;
+    role: string;
 }
 
 const api = axios.create({
