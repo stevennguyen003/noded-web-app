@@ -1,0 +1,55 @@
+.main {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: lightblue;
+    
+}
+
+.left-main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+    width: 20%;
+}
+.groupList {
+    height: 85%;
+    width: 100%;
+    background-color: gray;
+    border-radius: 30px;
+    margin: 1vw;
+}
+.personal {
+    height: 10%;
+    width: 100%;
+    background-color: gray;
+    margin: 1vw;
+    border-radius: 30px;
+}
+
+.right-main {
+    height: 100%;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+.groupInfo {
+    display: flex;
+    height: 95%;
+    width: 90%;
+    background-color: gray;
+    margin: auto;
+    border-radius: 30px;
+    justify-content: center;
+}
+
+.groupHeader {
+    width: 90%;
+    height: 10%;
+    background-color: beige;
+}
+
