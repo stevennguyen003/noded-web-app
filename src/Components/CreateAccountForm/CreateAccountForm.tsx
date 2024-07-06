@@ -16,7 +16,7 @@ function CreateAccountForm() {
         email: "",
         role: ""
     });
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [loginFailed, setLoginFailed] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -26,7 +26,7 @@ function CreateAccountForm() {
             navigate("/Home");
         } catch (error) {
             console.error("Error signing in:", error);
-            setErrorMessage("Unable to sign in.");
+            setLoginFailed(true);
         }
     }
 
@@ -44,36 +44,32 @@ function CreateAccountForm() {
 
     return (
         <div className="create-account-container">
-            <h1 className="login-form-title">Welcome back!</h1>
+            <h1 className="login-form-title">Hello!</h1>
             <form onSubmit={handleSubmit} className="create-account-form">
                 <div className="form-content">
                     <div className="form-group">
-                        <label htmlFor="usernameInput"><b>Username*</b></label>
+                        <label htmlFor="usernameInput"><b>USERNAME</b> <span className="error-message">{loginFailed && <i>- Login failed</i>}</span></label>
                         <input
                             type="text"
                             className="form-control"
                             id="usernameInput"
-                            placeholder="Enter your username"
                             value={credentials.username}
                             onChange={handleInputChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="passwordInput"><b>Password*</b></label>
+                        <label htmlFor="passwordInput"><b>PASSWORD</b> <span className="error-message">{loginFailed && <i>- Login failed</i>}</span></label>
                         <input
                             type="password"
                             className="form-control"
                             id="passwordInput"
-                            placeholder="Enter your password"
                             value={credentials.password}
                             onChange={handleInputChange}
                         />
                     </div>
-                    {errorMessage && (
-                        <div className="error-message">{errorMessage}</div>
-                    )}
                 </div>
-                <button type="submit" className="btn btn-primary"><b>Submit</b></button>
+                <button type="submit" className="btn btn-primary"><b>Log In</b></button>
+                <small className="register-text">Register here!</small>
             </form>
         </div>
     );
