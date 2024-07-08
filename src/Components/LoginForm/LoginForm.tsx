@@ -6,8 +6,10 @@ import { useNavigate } from "react-router";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+// Component for the login form displayed on the landing page
 function LoginForm() {
     const navigate = useNavigate();
+    // Represents the inputted credentials as a User 
     const [credentials, setCredentials] = useState<User>({
         _id: "",
         username: "",
@@ -24,7 +26,7 @@ function LoginForm() {
         try {
             const response = await userClient.signin(credentials);
             console.log("User signed in:", response);
-            navigate("/Home");
+            navigate("/home");
         } catch (error) {
             console.error("Error signing in:", error);
             setLoginFailed(true);
