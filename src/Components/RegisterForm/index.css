@@ -1,0 +1,15 @@
+.create-account-container {
+    height: 500px;
+    width: 450px;
+    background-color: #2a2828;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 3px;
+    padding: 25px;
+}
+
+.create-form-title {
+    color: #cecece;
+    font-size: 2rem;
+}

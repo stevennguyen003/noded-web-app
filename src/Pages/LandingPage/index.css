@@ -9,13 +9,3 @@
     justify-content: center;
     background-color: rgb(227, 227, 227);
 }
-
-.login-panel-container {
-    height: 375px;
-    width: 450px;
-    background-color: #2a2828;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 3px;
-}
