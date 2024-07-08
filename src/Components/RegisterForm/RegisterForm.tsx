@@ -14,26 +14,30 @@ function RegisterForm() {
         password: "",
         firstName: "",
         lastName: "",
-        email: "",
-        role: ""
     });
-    const [loginFailed, setLoginFailed] = useState(false);
+    const [registerFailed, setRegisterFailed] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await userClient.signin(credentials);
-            console.log("User signed in:", response);
-            navigate("/Home");
+            const response = await userClient.signup(credentials);
+            console.log("User registered:", response);
+            navigate("/home");
         } catch (error) {
-            console.error("Error signing in:", error);
-            setLoginFailed(true);
+            console.error("Error creating user:", error);
+            setRegisterFailed(true);
         }
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
         switch (id) {
+            case "firstNameInput":
+                setCredentials({ ...credentials, firstName: value })
+                break;
+            case "lastNameInput":
+                setCredentials({ ...credentials, lastName: value })
+                break;
             case "usernameInput":
                 setCredentials({ ...credentials, username: value })
                 break;
@@ -45,11 +49,31 @@ function RegisterForm() {
 
     return (
         <div className="create-account-container">
-            <h1 className="login-form-title">Hello!</h1>
+            <h2 className="create-form-title">Create an account</h2>
             <form onSubmit={handleSubmit} className="create-account-form">
                 <div className="form-content">
                     <div className="form-group">
-                        <label htmlFor="usernameInput"><b>USERNAME</b> <span className="error-message">{loginFailed && <i>- Login failed</i>}</span></label>
+                        <label htmlFor="firstNameInput"><b>FIRST NAME</b></label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="firstNameInput"
+                            value={credentials.firstName}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="lastNameInput"><b>LAST NAME</b></label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="lastNameInput"
+                            value={credentials.lastName}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="usernameInput"><b>USERNAME</b> <span className="error-message">{registerFailed && <i>- User already exists</i>}</span></label>
                         <input
                             type="text"
                             className="form-control"
@@ -59,7 +83,7 @@ function RegisterForm() {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="passwordInput"><b>PASSWORD</b> <span className="error-message">{loginFailed && <i>- Login failed</i>}</span></label>
+                        <label htmlFor="passwordInput"><b>PASSWORD</b></label>
                         <input
                             type="password"
                             className="form-control"
@@ -69,7 +93,7 @@ function RegisterForm() {
                         />
                     </div>
                 </div>
-                <button type="submit" className="btn btn-primary"><b>Log In</b></button>
+                <button type="submit" className="btn btn-primary"><b>Register</b></button>
                 <Link to='/' className="register-text">Have an account?</Link>
             </form>
         </div>

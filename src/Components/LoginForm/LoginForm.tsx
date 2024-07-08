@@ -16,8 +16,6 @@ function LoginForm() {
         password: "",
         firstName: "",
         lastName: "",
-        email: "",
-        role: ""
     });
     const [loginFailed, setLoginFailed] = useState(false);
 
@@ -46,9 +44,9 @@ function LoginForm() {
     }
 
     return (
-        <div className="create-account-container">
-            <h1 className="login-form-title">Hello!</h1>
-            <form onSubmit={handleSubmit} className="create-account-form">
+        <div className="login-account-container">
+            <h2 className="login-form-title">Hello!</h2>
+            <form onSubmit={handleSubmit} className="login-account-form">
                 <div className="form-content">
                     <div className="form-group">
                         <label htmlFor="usernameInput"><b>USERNAME</b> <span className="error-message">{loginFailed && <i>- Login failed</i>}</span></label>

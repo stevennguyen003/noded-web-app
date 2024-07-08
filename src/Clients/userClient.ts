@@ -9,8 +9,6 @@ export interface User {
     password: string;
     firstName: string;
     lastName: string;
-    email: string;
-    role: string;
 }
 
 const api = axios.create({
