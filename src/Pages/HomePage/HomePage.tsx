@@ -8,9 +8,9 @@ function HomePage() {
                 <div className="personal"></div>
             </div>
             <div className="right-main">
-            <div className="groupInfo">
-                <div className="groupHeader"></div>
-            </div>
+                <div className="groupInfo">
+                    <div className="groupHeader"></div>
+                </div>
             </div>
         </div>
     );
