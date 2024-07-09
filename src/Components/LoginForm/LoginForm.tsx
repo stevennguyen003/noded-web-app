@@ -4,8 +4,9 @@ import * as userClient from "../../Clients/userClient";
 import { User } from "../../Clients/userClient";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-function CreateAccountForm() {
+function LoginForm() {
     const navigate = useNavigate();
     const [credentials, setCredentials] = useState<User>({
         _id: "",
@@ -69,10 +70,10 @@ function CreateAccountForm() {
                     </div>
                 </div>
                 <button type="submit" className="btn btn-primary"><b>Log In</b></button>
-                <small className="register-text">Register here!</small>
+                <Link to='/register' className="register-text">Register here!</Link>
             </form>
         </div>
     );
 }
 
-export default CreateAccountForm;
+export default LoginForm;

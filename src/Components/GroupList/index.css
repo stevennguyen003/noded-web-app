@@ -1,0 +1,29 @@
+@import url("https://use.typekit.net/cyh5jpi.css");
+
+.group-list-container {
+    height: 100%;
+    width: 100%;
+}
+
+.group-list-header-container {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5%;
+}
+
+.group-list-header-container svg {
+    width: 15%;
+    font-size: 2rem;
+    color: #cecece;
+}
+
+.group-list-header-container h3 {
+    margin-left: 5%;
+    color: #cecece;
+    font-family: "gelica", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
