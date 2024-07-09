@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 // Component for the login form displayed on the landing page
 function LoginForm() {
     const navigate = useNavigate();
-    // Represents the inputted credentials as a User 
+    // Represents the inputted credentials as a User object
     const [credentials, setCredentials] = useState<User>({
         _id: "",
         username: "",
@@ -17,20 +17,22 @@ function LoginForm() {
         firstName: "",
         lastName: "",
     });
+    // State to handle login success
     const [loginFailed, setLoginFailed] = useState(false);
-
+    // Used on form submit, executes signin call
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             const response = await userClient.signin(credentials);
             console.log("User signed in:", response);
+            // Navigate user to home page on success
             navigate("/home");
         } catch (error) {
             console.error("Error signing in:", error);
             setLoginFailed(true);
         }
     }
-
+    // Handles changing states for all input fields
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
         switch (id) {
