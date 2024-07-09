@@ -110,7 +110,6 @@ function RegisterForm() {
                             onChange={handleInputChange}
                         />
                     </div>
-
                     <div className="form-group">
                         <label htmlFor="passwordInput"><b>PASSWORD</b>
                             {fieldErrors.password && <span className="error-message"><i> - This field is required</i></span>}
