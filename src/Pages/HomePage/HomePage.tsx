@@ -4,8 +4,6 @@ import GroupTitle from "../../Components/GroupTitle/GroupTitle";
 import SettingsButton from "../../Components/SettingsButton/SettingsButton";
 import QuizHeader from "../../Components/QuizHeader/QuizHeader";
 
-
-
 function HomePage() {
     return (
         <div className="main">
@@ -30,7 +28,6 @@ function HomePage() {
                 </div>
                 <div className="quizMenu">quiz</div>
             </div>
-
             </div>
         </div>
     );

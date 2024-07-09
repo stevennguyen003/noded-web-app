@@ -6,31 +6,33 @@ import { useNavigate } from "react-router";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+// Component for the login form displayed on the landing page
 function LoginForm() {
     const navigate = useNavigate();
+    // Represents the inputted credentials as a User object
     const [credentials, setCredentials] = useState<User>({
         _id: "",
         username: "",
         password: "",
         firstName: "",
         lastName: "",
-        email: "",
-        role: ""
     });
+    // State to handle login success
     const [loginFailed, setLoginFailed] = useState(false);
-
+    // Used on form submit, executes signin call
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             const response = await userClient.signin(credentials);
             console.log("User signed in:", response);
-            navigate("/Home");
+            // Navigate user to home page on success
+            navigate("/home");
         } catch (error) {
             console.error("Error signing in:", error);
             setLoginFailed(true);
         }
     }
-
+    // Handles changing states for all input fields
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
         switch (id) {
@@ -44,9 +46,9 @@ function LoginForm() {
     }
 
     return (
-        <div className="create-account-container">
-            <h1 className="login-form-title">Hello!</h1>
-            <form onSubmit={handleSubmit} className="create-account-form">
+        <div className="login-account-container">
+            <h2 className="login-form-title">Hello!</h2>
+            <form onSubmit={handleSubmit} className="login-account-form">
                 <div className="form-content">
                     <div className="form-group">
                         <label htmlFor="usernameInput"><b>USERNAME</b> <span className="error-message">{loginFailed && <i>- Login failed</i>}</span></label>
