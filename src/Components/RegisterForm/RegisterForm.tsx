@@ -16,6 +16,7 @@ function RegisterForm() {
         password: "",
         firstName: "",
         lastName: "",
+        profilePicture: ""
     });
     // State to handle register success
     const [registerFailed, setRegisterFailed] = useState(false);

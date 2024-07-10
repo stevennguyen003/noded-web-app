@@ -1,8 +1,12 @@
 @import url("https://use.typekit.net/cyh5jpi.css");
 
 .group-list-container {
-    height: 100%;
+    height: 90%;
     width: 100%;
+    background-color: #2a2828;
+    border-radius: 3px;
+    padding: 3ch;
+    margin-top: 5%;
 }
 
 .group-list-header-container {

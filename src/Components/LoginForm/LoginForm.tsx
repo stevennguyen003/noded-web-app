@@ -16,6 +16,7 @@ function LoginForm() {
         password: "",
         firstName: "",
         lastName: "",
+        profilePicture: ""
     });
     // State to handle login success
     const [loginFailed, setLoginFailed] = useState(false);
