@@ -75,3 +75,16 @@ export const findUserById = async (id: any) => {
     const response = await api.get(`${USERS_API}/${id}`);
     return response.data;
 };
+
+// Updates a user's profile picture
+export const uploadProfilePicture = async (id: string, file: File) => {
+    const formData = new FormData();
+    formData.append('profilePicture', file);
+
+    const response = await api.post(`${USERS_API}/${id}/uploadProfilePicture`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+    return response.data;
+};

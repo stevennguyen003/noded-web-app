@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 interface UploadProfilePictureModalProps {
@@ -8,12 +8,19 @@ interface UploadProfilePictureModalProps {
 }
 
 const UploadProfilePictureModal: React.FC<UploadProfilePictureModalProps> = ({ isOpen, onClose, onUpload }) => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   if (!isOpen) return null;
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      onUpload(file);
+      setSelectedFile(file);
+    }
+  };
+
+  const handleUpload = () => {
+    if (selectedFile) {
+      onUpload(selectedFile);
     }
   };
 
@@ -22,6 +29,7 @@ const UploadProfilePictureModal: React.FC<UploadProfilePictureModalProps> = ({ i
       <div className="modal-content">
         <h2>Upload Profile Picture</h2>
         <input type="file" accept="image/*" onChange={handleFileChange} />
+        <button onClick={handleUpload} disabled={!selectedFile}>Upload</button>
         <button onClick={onClose}>Cancel</button>
       </div>
     </div>,
