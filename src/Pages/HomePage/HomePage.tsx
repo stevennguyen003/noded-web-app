@@ -4,6 +4,7 @@ import GroupList from "../../Components/GroupList/GroupList";
 import GroupTitle from "../../Components/GroupTitle/GroupTitle";
 import SettingsButton from "../../Components/SettingsButton/SettingsButton";
 import QuizHeader from "../../Components/QuizHeader/QuizHeader";
+import QuizBox from "../../Components/QuizBox/QuizBox";
 
 function HomePage() {
     return (
@@ -28,7 +29,9 @@ function HomePage() {
                     <div className="quizInfo">
                         <QuizHeader />
                     </div>
-                    <div className="quizMenu">quiz</div>
+                    <div className="quizMenu">
+                        <QuizBox></QuizBox>
+                    </div>
                 </div>
             </div>
         </div>
