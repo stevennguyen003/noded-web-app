@@ -23,12 +23,12 @@
     margin-top: 3%;
 }
 
-.form-group label {
+.login-form-label {
     font-size: 0.8rem;
     color: #cecece;
 }
 
-.form-control {
+.login-form-input {
     background-color: rgb(62, 62, 62) !important;
     border: none !important;
     color: white !important;
@@ -41,7 +41,7 @@
     flex-direction: column;
 }
 
-.btn {
+.login-form-btn {
     width: 100% !important;
     background-color: rgb(65, 114, 73) !important;
     border: none !important;

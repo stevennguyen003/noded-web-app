@@ -1,38 +1,52 @@
 import React, { useState } from 'react';
+import { FileUploader } from "react-drag-drop-files";
 import ReactDOM from 'react-dom';
 
 interface UploadProfilePictureModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onUpload: (file: File) => void;
+  onUpload: (file: File) => Promise<void>;
 }
 
-// Popup Component to allow users to upload and save profile pictures
 const UploadProfilePictureModal: React.FC<UploadProfilePictureModalProps> = ({ isOpen, onClose, onUpload }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const fileTypes = ["JPEG", "PNG", "GIF"];
 
   if (!isOpen) return null;
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-    }
+  const handleFileChange = (file: File) => {
+    setError(null);
+    setSelectedFile(file);
+    console.log('Selected file:', file);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (selectedFile) {
-      onUpload(selectedFile);
+      try {
+        await onUpload(selectedFile);
+        onClose();
+      } catch (err) {
+        console.error('Upload error:', err);
+        setError('An error occurred during upload. Please try again.');
+      }
     }
   };
 
   return ReactDOM.createPortal(
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <h2>Upload Profile Picture</h2>
-        <input type="file" accept="image/*" onChange={handleFileChange} />
-        <button onClick={handleSubmit} disabled={!selectedFile}>Upload</button>
-        <button onClick={onClose}>Cancel</button>
+    <div className="pfp-modal-overlay">
+      <div className="pfp-modal-content">
+        <h2 className="pfp-modal-title">Upload an image</h2>
+        <FileUploader
+          handleChange={handleFileChange}
+          name="file"
+          types={fileTypes}
+        />
+        {error && <p className="error-message">{error}</p>}
+        <div className="pfp-modal-button-set">
+          <button onClick={onClose} className="btn btn-light">Cancel</button>
+          <button onClick={handleSubmit} disabled={!selectedFile} className="btn btn-primary">Upload</button>
+        </div>
       </div>
     </div>,
     document.body

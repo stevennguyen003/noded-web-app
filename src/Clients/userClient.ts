@@ -10,6 +10,7 @@ export interface User {
     firstName: string;
     lastName: string;
     profilePicture: string;
+    groups: string[];
 }
 
 const api = axios.create({

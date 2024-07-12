@@ -19,7 +19,8 @@ hr {
     flex-direction: column;
     align-items: flex-start;
     height: 100%;
-    width: 20%;
+    width: 300px;
+    flex-shrink: 0;
     padding: 1%;
 }
 

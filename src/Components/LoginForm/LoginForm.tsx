@@ -16,7 +16,8 @@ function LoginForm() {
         password: "",
         firstName: "",
         lastName: "",
-        profilePicture: ""
+        profilePicture: "",
+        groups: []
     });
     // State to handle login success
     const [loginFailed, setLoginFailed] = useState(false);
@@ -52,27 +53,27 @@ function LoginForm() {
             <form onSubmit={handleSubmit} className="login-account-form">
                 <div className="form-content">
                     <div className="form-group">
-                        <label htmlFor="usernameInput"><b>USERNAME</b> <span className="error-message">{loginFailed && <i>- Login failed</i>}</span></label>
+                        <label htmlFor="usernameInput" className="login-form-label"><b>USERNAME</b> <span className="error-message">{loginFailed && <i>- Login failed</i>}</span></label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control login-form-input"
                             id="usernameInput"
                             value={credentials.username}
                             onChange={handleInputChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="passwordInput"><b>PASSWORD</b> <span className="error-message">{loginFailed && <i>- Login failed</i>}</span></label>
+                        <label htmlFor="passwordInput" className="login-form-label"><b>PASSWORD</b> <span className="error-message">{loginFailed && <i>- Login failed</i>}</span></label>
                         <input
                             type="password"
-                            className="form-control"
+                            className="form-control login-form-input"
                             id="passwordInput"
                             value={credentials.password}
                             onChange={handleInputChange}
                         />
                     </div>
                 </div>
-                <button type="submit" className="btn btn-primary"><b>Log In</b></button>
+                <button type="submit" className="btn btn-primary login-form-btn"><b>Log In</b></button>
                 <Link to='/register' className="register-text">Register here!</Link>
             </form>
         </div>

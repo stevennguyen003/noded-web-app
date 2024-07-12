@@ -16,7 +16,8 @@ function RegisterForm() {
         password: "",
         firstName: "",
         lastName: "",
-        profilePicture: ""
+        profilePicture: "",
+        groups: []
     });
     // State to handle register success
     const [registerFailed, setRegisterFailed] = useState(false);
@@ -73,12 +74,12 @@ function RegisterForm() {
             <form onSubmit={handleSubmit} className="create-account-form">
                 <div className="form-content">
                     <div className="form-group">
-                        <label htmlFor="firstNameInput"><b>FIRST NAME</b>
+                        <label htmlFor="firstNameInput" className="register-form-label"><b>FIRST NAME</b>
                             {fieldErrors.firstName && <span className="error-message"><i> - This field is required</i></span>}
                         </label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control register-form-input"
                             id="firstNameInput"
                             value={credentials.firstName}
                             onChange={handleInputChange}
@@ -86,12 +87,12 @@ function RegisterForm() {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="lastNameInput"><b>LAST NAME</b>
+                        <label htmlFor="lastNameInput" className="register-form-label"><b>LAST NAME</b>
                             {fieldErrors.lastName && <span className="error-message"><i> - This field is required</i></span>}
                         </label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control register-form-input"
                             id="lastNameInput"
                             value={credentials.lastName}
                             onChange={handleInputChange}
@@ -99,32 +100,32 @@ function RegisterForm() {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="usernameInput"><b>USERNAME</b>
+                        <label htmlFor="usernameInput" className="register-form-label"><b>USERNAME</b>
                             {fieldErrors.username && <span className="error-message"><i> - This field is required</i></span>}
                             {registerFailed && <span className="error-message"><i> - User already exists</i></span>}
                         </label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control register-form-input"
                             id="usernameInput"
                             value={credentials.username}
                             onChange={handleInputChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="passwordInput"><b>PASSWORD</b>
+                        <label htmlFor="passwordInput" className="register-form-label"><b>PASSWORD</b>
                             {fieldErrors.password && <span className="error-message"><i> - This field is required</i></span>}
                         </label>
                         <input
                             type="password"
-                            className="form-control"
+                            className="form-control register-form-input"
                             id="passwordInput"
                             value={credentials.password}
                             onChange={handleInputChange}
                         />
                     </div>
                 </div>
-                <button type="submit" className="btn btn-primary"><b>Register</b></button>
+                <button type="submit" className="btn btn-primary register-form-btn"><b>Register</b></button>
                 <Link to='/' className="register-text">Have an account?</Link>
             </form>
         </div>
