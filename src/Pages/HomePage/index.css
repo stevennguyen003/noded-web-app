@@ -65,6 +65,28 @@ hr {
     height: 30%;
     background-color: beige;
     align-self: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.bar {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: pink;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+}
+
+#bar2 {
+    margin-left: 30px;
+    height: 70%;
+}
+
+#bar3 {
+    margin-right: 30px;
+    height: 40%;
 }
 
 .quizInfo {
