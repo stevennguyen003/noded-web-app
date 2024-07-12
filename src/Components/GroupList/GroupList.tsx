@@ -20,7 +20,7 @@ function GroupList() {
                 name: groupName,
                 users: {
                     [user.username]: 'admin'
-                }
+                },
             };
             const response = await groupClient.createGroup(newGroup);
             console.log("Group created:", response);

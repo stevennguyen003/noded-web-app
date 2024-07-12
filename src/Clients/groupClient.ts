@@ -10,6 +10,7 @@ export interface Group {
         [username: string]: 'admin' | 'editor' | 'user';
     };
     profilePicture: string;
+    inviteLink: string;
 }
 
 const api = axios.create({
