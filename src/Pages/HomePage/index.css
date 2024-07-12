@@ -76,6 +76,7 @@ hr {
     background-color: pink;
     width: 20%;
     height: 100%;
+    text-align: center;
 }
 
 #bar2 {
@@ -84,7 +85,7 @@ hr {
 }
 
 #bar3 {
-    margin-right: 3g0px;
+    margin-right: 30px;
     height: 40%;
 }
 
