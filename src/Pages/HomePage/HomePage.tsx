@@ -20,7 +20,11 @@ function HomePage() {
                         <SettingsButton />
                     </div>
                     <hr></hr>
-                    <div className="leaderInfo">leaderboard</div>
+                    <div className="leaderInfo">
+                        <div className="bar" id="bar2"/>
+                        <div className="bar" id="bar1"/>
+                        <div className="bar" id="bar3"/>
+                    </div>
                     <div className="quizInfo">
                         <QuizHeader />
                     </div>
