@@ -8,9 +8,10 @@ function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/login/*" />} />
-        <Route path="/login/*" element={<LandingPage />} />
-        <Route path="home" element={<HomePage />} />
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<LandingPage />} />
+        <Route path="/home" element={<Navigate to="/home/default" />} />
+        <Route path="/home/:groupId" element={<HomePage />} />
         <Route path="/*" element={<LandingPage />} />
       </Routes>
     </HashRouter>

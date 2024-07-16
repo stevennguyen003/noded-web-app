@@ -43,7 +43,7 @@ function RegisterForm() {
         try {
             const response = await userClient.signup(credentials);
             console.log("User registered:", response);
-            navigate("/home");
+            navigate("/home/default");
         } catch (error) {
             console.error("Error creating user:", error);
             setRegisterFailed(true);
