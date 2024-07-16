@@ -1,27 +1,21 @@
 import SettingsButton from "../SettingsButton/SettingsButton";
 import QuizHeader from "../QuizHeader/QuizHeader";
 import QuizBox from "../QuizBox/QuizBox";
-import { useParams, useNavigate } from "react-router";
-import { useEffect, useState } from "react";
+import DefaultDashboard from "../DefaultDashboard/DefaultDashboard";
+import { useParams } from "react-router";
+import { useEffect, useState, useCallback } from "react";
 import * as groupClient from "../../Clients/groupClient";
-import { Group } from "../../Clients/groupClient";
 import "./index.css";
 
 // Component to represent the entire group dashboard
 function GroupDashboard() {
-    const navigate = useNavigate();
     // Currently viewing group's id will be contained in the URL
     const { groupId } = useParams();
     // State to hold current group
     const [group, setGroup] = useState<groupClient.Group>();
     // Fetch the group viewing
-    const fetchGroup = async () => {
+    const fetchGroup = useCallback(async () => {
         try {
-            // if (!groupId || groupId === 'default') {
-            //     console.error("Invalid group ID:", groupId);
-            //     // Handle invalid group ID (e.g., redirect to home page)
-            //     return;
-            // }
             const response = await groupClient.findGroupById(groupId);
             setGroup(response);
             console.log("Group found:", response);
@@ -29,17 +23,16 @@ function GroupDashboard() {
             console.error("Error fetching group:", error);
             // Handle error (e.g., show error message to user)
         }
-    }
+    }, [groupId]);
 
     useEffect(() => {
         fetchGroup();
-    }, [groupId]);
-
+    }, [fetchGroup]);
 
     return (
         <div className="groupInfo">
             {groupId === "default" ? (
-                <h1>default</h1>
+                <DefaultDashboard />
             ) : groupId ? (<>
                 <div className="groupHeader">
                     <div className="groupTitle">
@@ -61,7 +54,7 @@ function GroupDashboard() {
                 </div>
             </>
             ) : (
-                <h1>default</h1>
+                <DefaultDashboard />
             )}
         </div>
     );

@@ -4,6 +4,7 @@ import * as userClient from "../../Clients/userClient"
 import { Group } from "../../Clients/groupClient";
 import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
+import { FaPlus } from "react-icons/fa";
 import CreateGroupModal from "./CreateGroupModalProps";
 
 // Component to represent the list of groups the user is in
@@ -11,6 +12,7 @@ function GroupList() {
     const [groups, setGroups] = useState<Group[]>([]);
     // State to represent if the modal is open
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const defaultGroupProfilePicUrl = "../Images/default.png";
     // Creating a new group
     const createGroup = async (groupName: string): Promise<Group> => {
         try {
@@ -84,16 +86,24 @@ function GroupList() {
     return (
         <div className="group-list-container">
             <div className="group-list-header-container">
-                <h3>Groups</h3>
-                <button onClick={handleCreateGroup}>Create</button>
+                <h3>GROUPS</h3>
+                <FaPlus onClick={handleCreateGroup} style={{ cursor: 'pointer' }} />
             </div>
             <div className="group-list-body-container">
                 {groups.map((group) => (<>
-                    <div className="group-header-container">
-                        <Link to={`/home/${group._id}`} className="register-text">{group.name}</Link>
+                    <div className="group-header-container" key={group._id}>
+                        <img
+                            src={defaultGroupProfilePicUrl}
+                            alt="Group Profile"
+                            className="group-profile-image"
+                        />
+                        <Link to={`/home/${group._id}`} className="group-header-name">{group.name}</Link>
                     </div>
                 </>
                 ))}
+                <h1>Test</h1>
+                <h1>Test</h1>
+                <h1>Test</h1>
                 <h1>Test</h1>
                 <h1>Test</h1>
             </div>
