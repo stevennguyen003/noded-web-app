@@ -1,5 +1,6 @@
 import SettingsButton from "../SettingsButton/SettingsButton";
 import QuizHeader from "../QuizHeader/QuizHeader";
+import QuizBox from "../QuizBox/QuizBox";
 import { useParams, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import * as groupClient from "../../Clients/groupClient";
@@ -55,7 +56,9 @@ function GroupDashboard() {
                 <div className="quizInfo">
                     <QuizHeader />
                 </div>
-                <div className="quizMenu">quiz</div>
+                <div className="quizMenu">
+                    <QuizBox></QuizBox>
+                </div>
             </>
             ) : (
                 <h1>default</h1>
