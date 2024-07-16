@@ -28,7 +28,7 @@ function LoginForm() {
             const response = await userClient.signin(credentials);
             console.log("User signed in:", response);
             // Navigate user to home page on success
-            navigate("/home");
+            navigate("/home/default");
         } catch (error) {
             console.error("Error signing in:", error);
             setLoginFailed(true);

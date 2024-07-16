@@ -2,25 +2,29 @@ import React, { useState } from 'react';
 import { FileUploader } from "react-drag-drop-files";
 import ReactDOM from 'react-dom';
 
+// Props used for the modal
 interface UploadProfilePictureModalProps {
   isOpen: boolean;
   onClose: () => void;
   onUpload: (file: File) => Promise<void>;
 }
 
+// Modal used for a user to upload a profile picture
 const UploadProfilePictureModal: React.FC<UploadProfilePictureModalProps> = ({ isOpen, onClose, onUpload }) => {
+  // State to hold the file uploaded
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  // State to hold errors
   const [error, setError] = useState<string | null>(null);
+  // Represents the valid PFP types
   const fileTypes = ["JPEG", "PNG", "GIF"];
-
   if (!isOpen) return null;
-
+  // Called to handle state changes for the selectedFile
   const handleFileChange = (file: File) => {
     setError(null);
     setSelectedFile(file);
     console.log('Selected file:', file);
   };
-
+  // Submitting the image uploaded
   const handleSubmit = async () => {
     if (selectedFile) {
       try {
