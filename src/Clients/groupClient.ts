@@ -31,9 +31,15 @@ export const findAllGroups = async () => {
 
 // Find a group by their id
 export const findGroupById = async (id: any) => {
-    const response = await api.get(`${GROUPS_API}/${id}`);
+    const response = await api.get(`${GROUPS_API}/id/${id}`);
     return response.data;
 };
+
+// Find a group by their invite link
+export const findGroupByInviteCode = async (inviteCode: any) => {
+    const response = await api.get(`${GROUPS_API}/invite/${inviteCode}`);
+    return response.data;
+}
 
 // Update a group's info
 export const updateGroup = async (group: any) => {

@@ -15,6 +15,7 @@ function GroupDashboard() {
     const [group, setGroup] = useState<groupClient.Group>();
     // Fetch the group viewing
     const fetchGroup = useCallback(async () => {
+        if (groupId === 'default') { return; }
         try {
             const response = await groupClient.findGroupById(groupId);
             setGroup(response);

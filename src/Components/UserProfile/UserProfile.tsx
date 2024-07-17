@@ -21,7 +21,6 @@ function UserProfile() {
         try {
             const response = await userClient.profile();
             setSessionProfile(response);
-            console.log("Test:", response._id);
             if (response.profilePicture) {
                 const url = `${process.env.REACT_APP_BACKEND_URL}/${response.profilePicture}`;
                 const correctedUrl = url.replace(/\\/g, "/");

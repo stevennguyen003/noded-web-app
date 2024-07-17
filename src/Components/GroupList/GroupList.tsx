@@ -5,7 +5,7 @@ import { Group } from "../../Clients/groupClient";
 import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
-import CreateGroupModal from "./CreateGroupModalProps";
+import CreateGroupModal from "./NewGroupModalProps";
 
 // Component to represent the list of groups the user is in
 function GroupList() {
@@ -33,8 +33,35 @@ function GroupList() {
                 groups: [...user.groups, createdGroup._id]
             });
             console.log("Appended to user's groups:", updatedUser);
-
             return createdGroup;
+        } catch (error) {
+            console.error("Error creating group:", error);
+            throw error;
+        }
+    }
+    // Joining a group
+    const joinGroup = async (inviteCode: string): Promise<Group> => {
+        try {
+            // Fetch session user to establish as the group's admin
+            const user = await userClient.profile();
+            const joinedGroup = await groupClient.findGroupByInviteCode(inviteCode);
+            console.log("Group found:", joinedGroup);
+            // Update group's users
+            const updatedGroup = await groupClient.updateGroup({
+                ...joinedGroup,
+                users: {
+                    ...joinedGroup.users,
+                    [user.username]: 'user'
+                }
+            });
+            console.log("Group's users are updated:", updatedGroup);
+            // Update user's groups
+            const updatedUser = await userClient.updateUser({
+                ...user,
+                groups: [...user.groups, joinedGroup._id]
+            });
+            console.log("Appended to user's groups:", updatedUser);
+            return joinedGroup;
         } catch (error) {
             console.error("Error creating group:", error);
             throw error;
@@ -82,6 +109,16 @@ function GroupList() {
             console.error("Error creating group:", error);
         }
     }
+    // Submitting invite code for group
+    const handleJoin = async (inviteCode: string) => {
+        try {
+            const joinedGroup = await joinGroup(inviteCode);
+            setGroups(prevGroups => [...prevGroups, joinedGroup]);
+            setIsModalOpen(false);
+        } catch (error) {
+            console.error("Error joining group:", error);
+        }
+    }
 
     return (
         <div className="group-list-container">
@@ -90,8 +127,8 @@ function GroupList() {
                 <FaPlus onClick={handleCreateGroup} style={{ cursor: 'pointer' }} />
             </div>
             <div className="group-list-body-container">
-                {groups.map((group) => (<>
-                    <div className="group-header-container" key={group._id}>
+                {groups.map((group) => (
+                    <div key={group._id} className="group-header-container">
                         <img
                             src={defaultGroupProfilePicUrl}
                             alt="Group Profile"
@@ -99,13 +136,13 @@ function GroupList() {
                         />
                         <Link to={`/home/${group._id}`} className="group-header-name">{group.name}</Link>
                     </div>
-                </>
                 ))}
             </div>
             <CreateGroupModal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
                 onSubmit={handleSubmit}
+                onJoin={handleJoin}
             />
         </div>
     );

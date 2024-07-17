@@ -85,6 +85,26 @@
     z-index: 1000;
 }
 
+.create-group-modal-tabs {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    outline: none;
+}
+
+.tab-button.active {
+    border-bottom: 2px solid #007bff;
+    color: #007bff;
+}
+
 .create-group-modal-title {
     font-size: 1.75rem;
     color: rgb(64, 64, 64);
