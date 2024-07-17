@@ -101,11 +101,6 @@ function GroupList() {
                     </div>
                 </>
                 ))}
-                <h1>Test</h1>
-                <h1>Test</h1>
-                <h1>Test</h1>
-                <h1>Test</h1>
-                <h1>Test</h1>
             </div>
             <CreateGroupModal
                 isOpen={isModalOpen}

@@ -50,7 +50,7 @@ function GroupDashboard() {
                     <QuizHeader />
                 </div>
                 <div className="quizMenu">
-                    <QuizBox></QuizBox>
+                    <QuizBox />
                 </div>
             </>
             ) : (

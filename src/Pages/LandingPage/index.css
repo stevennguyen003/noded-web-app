@@ -7,5 +7,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: rgb(227, 227, 227);
+    background-image: white;
+    background-color: #FFE5E5;
+    background-image: 
+        radial-gradient(circle at 20% 20%, #FFD1D1 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, #FFCCCB 0%, transparent 50%);
 }

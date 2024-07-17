@@ -53,7 +53,7 @@ function LoginForm() {
             <form onSubmit={handleSubmit} className="login-account-form">
                 <div className="form-content">
                     <div className="form-group">
-                        <label htmlFor="usernameInput" className="login-form-label"><b>USERNAME</b> <span className="error-message">{loginFailed && <i>- Login failed</i>}</span></label>
+                        <label htmlFor="usernameInput" className="login-form-label"><b>Username</b> <span className="error-message">{loginFailed && <i>- Login failed</i>}</span></label>
                         <input
                             type="text"
                             className="form-control login-form-input"
@@ -63,7 +63,7 @@ function LoginForm() {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="passwordInput" className="login-form-label"><b>PASSWORD</b> <span className="error-message">{loginFailed && <i>- Login failed</i>}</span></label>
+                        <label htmlFor="passwordInput" className="login-form-label"><b>Password</b> <span className="error-message">{loginFailed && <i>- Login failed</i>}</span></label>
                         <input
                             type="password"
                             className="form-control login-form-input"

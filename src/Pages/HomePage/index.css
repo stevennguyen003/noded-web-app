@@ -19,7 +19,7 @@ hr {
     height: 100%;
     width: 300px;
     flex-shrink: 0;
-    padding: 1%;
+    padding: 15px;
 }
 
 .personal {
@@ -32,7 +32,7 @@ hr {
 
 .right-main {
     height: 100%;
-    width: 80%;
+    flex-grow: 1;
     display: flex;
     justify-content: center;
     padding: 1%;

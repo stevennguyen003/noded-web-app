@@ -1,12 +1,13 @@
 @import url("https://use.typekit.net/cyh5jpi.css");
 
 .user-profile-container {
-    height: 40%;
+    height: 32%;
     width: 100%;
     padding: 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .profile-image-container {
@@ -59,6 +60,7 @@
 }
 
 .profile-full-name {
+    font-size: 1.5rem;
     font-family: "quiroh", sans-serif;
     font-weight: 700;
     font-style: normal;
@@ -87,6 +89,7 @@
 }
 
 .pfp-modal-title {
+    font-size: 1.75rem;
     color: rgb(64, 64, 64);
     margin-bottom: 10px;
 }

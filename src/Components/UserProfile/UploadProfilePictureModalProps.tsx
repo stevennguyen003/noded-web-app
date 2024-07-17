@@ -16,7 +16,7 @@ const UploadProfilePictureModal: React.FC<UploadProfilePictureModalProps> = ({ i
   // State to hold errors
   const [error, setError] = useState<string | null>(null);
   // Represents the valid PFP types
-  const fileTypes = ["JPEG", "PNG", "GIF"];
+  const fileTypes = ["JPEG", "PNG", "GIF", "JPG"];
   if (!isOpen) return null;
   // Called to handle state changes for the selectedFile
   const handleFileChange = (file: File) => {

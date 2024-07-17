@@ -34,7 +34,7 @@ const CreateGroupModal: React.FC<CreateGroupModalProps> = ({ isOpen, onClose, on
     return ReactDOM.createPortal(
         <div className="create-group-modal-overlay">
             <div className="create-group-modal-content">
-                <h2>Create a new group!</h2>
+                <h2 className="create-group-modal-title">Create a new group!</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="nameInput" className="create-group-label">Group Name</label>
