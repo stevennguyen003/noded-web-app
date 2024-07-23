@@ -12,7 +12,7 @@ function GroupList() {
     const [groups, setGroups] = useState<Group[]>([]);
     // State to represent if the modal is open
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const defaultGroupProfilePicUrl = "../Images/default.png";
+    const defaultGroupProfilePicUrl = "../Images/group.jpg";
     // Creating a new group
     const createGroup = async (groupName: string): Promise<Group> => {
         try {
@@ -100,15 +100,22 @@ function GroupList() {
         setIsModalOpen(false);
     }
     // Submitting form data for group
-    const handleSubmit = async (groupName: string) => {
+    const handleSubmit = async (groupName: string, file: File | null) => {
         try {
             const newGroup = await createGroup(groupName);
-            setGroups(prevGroups => [...prevGroups, newGroup]);
+            if (file) {
+                await groupClient.uploadNote(newGroup._id, file);
+                // Refresh the group data to get the updated note information
+                const updatedGroup = await groupClient.findGroupById(newGroup._id);
+                setGroups(prevGroups => [...prevGroups, updatedGroup]);
+            } else {
+                setGroups(prevGroups => [...prevGroups, newGroup]);
+            }
             setIsModalOpen(false);
         } catch (error) {
             console.error("Error creating group:", error);
         }
-    }
+    };
     // Submitting invite code for group
     const handleJoin = async (inviteCode: string) => {
         try {

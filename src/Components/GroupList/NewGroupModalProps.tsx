@@ -7,7 +7,7 @@ interface NewGroupModalProps {
     isOpen: boolean;
     onClose: () => void;
     onSubmit: (groupName: string, file: File | null) => void;
-    onJoin: (groupCode: string) => void;
+    onJoin: (inviteCode: string) => void;
 }
 // Modal for either creating or joining a group
 const NewGroupModal: React.FC<NewGroupModalProps> = ({ isOpen, onClose, onSubmit, onJoin }) => {
@@ -19,13 +19,18 @@ const NewGroupModal: React.FC<NewGroupModalProps> = ({ isOpen, onClose, onSubmit
     const [inviteCode, setInviteCode] = useState("");
     // State to represent which tab user is on
     const [activeTab, setActiveTab] = useState<'create' | 'join'>('create');
-
+    // State to hold errors
+    const [error, setError] = useState<string | null>(null);
+    // Valid types for notes
+    const fileTypes = ["PDF"];
     if (!isOpen) return null;
-
+    // Handling the file uploaded
     const handleFileChange = (file: File) => {
+        setError(null);
         setSelectedFile(file);
+        console.log('Selected file:', file);
     };
-
+    // Handling changes in user inputs in the form
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
         if (id === "nameInput") {
@@ -34,7 +39,7 @@ const NewGroupModal: React.FC<NewGroupModalProps> = ({ isOpen, onClose, onSubmit
             setInviteCode(value);
         }
     }
-
+    // Handling form submission for both creating and joining
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (activeTab === 'create') {
@@ -51,20 +56,15 @@ const NewGroupModal: React.FC<NewGroupModalProps> = ({ isOpen, onClose, onSubmit
                 <div className="create-group-modal-tabs">
                     <button
                         className={`tab-button ${activeTab === 'create' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('create')}
-                    >
+                        onClick={() => setActiveTab('create')}>
                         Create
                     </button>
                     <button
                         className={`tab-button ${activeTab === 'join' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('join')}
-                    >
+                        onClick={() => setActiveTab('join')}>
                         Join
                     </button>
                 </div>
-                {/* <h2 className="create-group-modal-title">
-                    {activeTab === 'create' ? 'Create a new group!' : 'Join a group!'}
-                </h2> */}
                 <form onSubmit={handleSubmit}>
                     {activeTab === 'create' ? (
                         <>
@@ -85,6 +85,7 @@ const NewGroupModal: React.FC<NewGroupModalProps> = ({ isOpen, onClose, onSubmit
                                     handleChange={handleFileChange}
                                     name="file"
                                     id="materialInput"
+                                    types={fileTypes}
                                 />
                             </div>
                         </>

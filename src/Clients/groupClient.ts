@@ -64,3 +64,15 @@ export const uploadProfilePicture = async (id: string, file: File) => {
     });
     return response.data;
 };
+
+// Uploads a note to the group
+export const uploadNote = async (id: string, file: File) => {
+    const formData = new FormData();
+    formData.append('note', file);
+    const response = await api.post(`${GROUPS_API}/${id}/uploadNote`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+    return response.data;
+};
