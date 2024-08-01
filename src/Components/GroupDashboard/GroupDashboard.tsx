@@ -5,6 +5,7 @@ import DefaultDashboard from "../DefaultDashboard/DefaultDashboard";
 import { useParams } from "react-router";
 import { useEffect, useState, useCallback } from "react";
 import * as groupClient from "../../Clients/groupClient";
+import * as noteClient from "../../Clients/noteClient"
 import "./index.css";
 
 // Component to represent the entire group dashboard
@@ -20,6 +21,10 @@ function GroupDashboard() {
             const response = await groupClient.findGroupById(groupId);
             setGroup(response);
             console.log("Group found:", response);
+            const notes = await groupClient.findAllNotes(groupId);
+            console.log("Notes found", notes);
+            const quizzes = await noteClient.findAllQuizzes(notes[0]._id);
+            console.log("Quizzes found", quizzes);
         } catch (error) {
             console.error("Error fetching group:", error);
             // Handle error (e.g., show error message to user)

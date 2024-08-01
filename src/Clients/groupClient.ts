@@ -76,3 +76,9 @@ export const uploadNote = async (id: string, file: File) => {
     });
     return response.data;
 };
+
+// Find all notes from the group's array of IDs
+export const findAllNotes = async (id: any) => {
+    const response = await api.get(`${GROUPS_API}/${id}/findAllNotes`);
+    return response.data;
+}
