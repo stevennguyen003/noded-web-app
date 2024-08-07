@@ -33,11 +33,12 @@
 }
 
 .group-list-body-container {
-    height: 90%;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    overflow-x: clip;
 }
 
 .group-header-container {
@@ -147,6 +148,6 @@
 }
 
 * {
-    scrollbar-width: thin;
+    scrollbar-width: none;
     scrollbar-color: rgba(255, 255, 255, 0.25) rgba(0, 0, 0, 0.25);
 }
