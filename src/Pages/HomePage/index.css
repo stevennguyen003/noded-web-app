@@ -33,7 +33,6 @@ hr {
 .right-main {
     height: 100%;
     flex-grow: 1;
-    padding: 25px;
     display: flex;
     justify-content: center;
     background-color: white;

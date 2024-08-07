@@ -12,6 +12,7 @@ function GroupList() {
     const [groups, setGroups] = useState<Group[]>([]);
     // State to represent if the modal is open
     const [isModalOpen, setIsModalOpen] = useState(false);
+    // Default profile picture
     const defaultGroupProfilePicUrl = "../Images/group.jpg";
     // Creating a new group
     const createGroup = async (groupName: string): Promise<Group> => {
@@ -24,6 +25,9 @@ function GroupList() {
                 userRoles: {
                     [user._id]: 'admin'
                 },
+                userScores: {
+                    [user._id]: 0
+                }
             };
             const createdGroup = await groupClient.createGroup(newGroup);
             console.log("Group created:", createdGroup);
@@ -52,6 +56,10 @@ function GroupList() {
                 userRoles: {
                     ...joinedGroup.userRoles,
                     [user._id]: 'user'
+                },
+                userScores: {
+                    ...joinedGroup.userScores,
+                    [user._id]: 0
                 }
             });
             console.log("Group's users are updated:", updatedGroup);
