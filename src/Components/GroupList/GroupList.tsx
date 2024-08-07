@@ -21,8 +21,8 @@ function GroupList() {
             const newGroup = {
                 _id: "",
                 name: groupName,
-                users: {
-                    [user.username]: 'admin'
+                userRoles: {
+                    [user._id]: 'admin'
                 },
             };
             const createdGroup = await groupClient.createGroup(newGroup);
@@ -49,9 +49,9 @@ function GroupList() {
             // Update group's users
             const updatedGroup = await groupClient.updateGroup({
                 ...joinedGroup,
-                users: {
-                    ...joinedGroup.users,
-                    [user.username]: 'user'
+                userRoles: {
+                    ...joinedGroup.userRoles,
+                    [user._id]: 'user'
                 }
             });
             console.log("Group's users are updated:", updatedGroup);

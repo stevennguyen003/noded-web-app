@@ -6,7 +6,7 @@ export const GROUPS_API = `http://localhost:4000/api/groups`;
 export interface Group {
     _id: string;
     name: string;
-    users: {
+    userRoles: {
         [username: string]: 'admin' | 'editor' | 'user';
     };
     profilePicture: string;
