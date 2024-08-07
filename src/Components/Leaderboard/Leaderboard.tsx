@@ -1,43 +1,38 @@
 import "./index.css";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import * as userClient from "../../Clients/userClient";
 import * as groupClient from "../../Clients/groupClient";
 
-interface LeaderboardProps {
-    group?: groupClient.Group;
-}
-
+interface LeaderboardProps { group?: groupClient.Group; }
 // Component to represent the leaderboard for the group
 function Leaderboard({ group }: LeaderboardProps) {
+    // Holds all user profiles within the group
+    const [users, setUsers] = useState<userClient.User[]>([]);
+    // Fetch all users in the group
+    const fetchUsers = useCallback(async () => {
+        if (!group || !group.userRoles) return;
+        const userPromises = Object.keys(group.userRoles).map(id => userClient.findUserById(id));
+        try {
+            const usersArray = await Promise.all(userPromises);
+            console.log("Users in group:", usersArray);
+            setUsers(usersArray);
+        } catch (error) {
+            console.error("Failed to fetch users in group:", error);
+        }
+    }, [group]);
 
-    // // Fetch groups available to user
-    // const fetchUsers = useCallback(async () => {
-    //     try {
-    //         const user = await userClient.profile();
-    //         if (user.groups && user.groups.length > 0) {
-    //             // Map through user's group IDs and fetch each group
-    //             const fetchedGroups = await Promise.all(
-    //                 user.groups.map((groupId: any) => groupClient.findGroupById(groupId))
-    //             );
-    //             console.log("Groups found:", fetchedGroups);
-    //             setGroups(fetchedGroups);
-    //         } else {
-    //             // If user has no groups, set groups to an empty array
-    //             setGroups([]);
-    //         }
-    //     } catch (error) {
-    //         console.error("Error fetching groups:", error);
-    //     }
-    // }, []);
-
-    // useEffect(() => {
-    //     fetchGroups();
-    // }, [fetchGroups]);
-
+    useEffect(() => {
+        fetchUsers();
+    }, [fetchUsers]);
 
     return (
-        <div className="group-profile-container">
-            <h2>{group?.name}</h2>
+        <div className="leaderboard-container">
+            <div className="leaderboard-header">
+                <h1>Leaderboard</h1>
+            </div>
+            <div className="leaderboard-body-container">
+                <h2>{group?.name}</h2>
+            </div>
         </div>
     );
 }

@@ -1,6 +1,13 @@
-.group-profile-container {
-    height: 40%;
-    width: 40%;
-    border-radius: 15px;
+.leaderboard-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.leaderboard-body-container {
     background-color: lightblue;
+    flex-grow: 1;
+    border-radius: 15px;
+    padding: 15px;
 }

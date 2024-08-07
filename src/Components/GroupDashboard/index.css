@@ -5,22 +5,21 @@
     height: 100%;
     width: 100%;
     margin: auto;
-    flex-direction: column;
+    flex-direction: row;
 }
 
-.dashboard-page-container h1 {
-    font-size: 2.5rem;
-    font-family: "quiroh", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    color: rgb(64, 64, 64);
-}
-
-.group-profile-container {
-    height: 40%;
+.left-container {
+    height: 100%;
     width: 40%;
-    border-radius: 15px;
-    background-color: lightblue;
+    padding: 25px;
+    padding-right: 12.5px;
+}
+
+.right-container {
+    height: 100%;
+    width: 60%;
+    padding: 25px;
+    padding-left: 12.5px;
 }
 
 

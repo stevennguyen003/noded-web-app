@@ -9,6 +9,9 @@ export interface Group {
     userRoles: {
         [username: string]: 'admin' | 'editor' | 'user';
     };
+    userScores: {
+        [userId: string]: number;
+    },
     profilePicture: string;
     inviteLink: string;
 }
