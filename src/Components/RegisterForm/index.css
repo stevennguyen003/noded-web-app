@@ -1,7 +1,8 @@
+@import url("https://use.typekit.net/cyh5jpi.css");
+
 .create-account-container {
     height: 500px;
     width: 450px;
-    background-color: #2a2828;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,27 +11,31 @@
 }
 
 .create-form-title {
-    color: #cecece;
+    color: #282828;
     font-size: 2rem;
+    font-family: "quiroh", sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
 .register-form-label {
     font-size: 0.8rem;
-    color: #cecece;
+    color: #282828;
+    margin-bottom: 3px;
 }
 
 .register-form-input {
-    background-color: rgb(62, 62, 62) !important;
+    background-color: rgb(242, 242, 242) !important;
     border: none !important;
-    color: white !important;
-    border-radius: 3px !important;
+    color: #282828 !important;
+    border-radius: 10px !important;
 }
 
 .register-form-btn {
     width: 100% !important;
-    background-color: rgb(57, 5, 242) !important;
+    background-color: rgb(79, 34, 240) !important;
     border: none !important;
-    border-radius: 3px !important;
+    border-radius: 10px !important;
     margin-top: 5%;
     margin-bottom: 1%;
 }

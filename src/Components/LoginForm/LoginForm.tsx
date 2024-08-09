@@ -49,7 +49,7 @@ function LoginForm() {
 
     return (
         <div className="login-account-container">
-            <h2 className="login-form-title">Hello!</h2>
+            <h2 className="login-form-title">Welcome Back!</h2>
             <form onSubmit={handleSubmit} className="login-account-form">
                 <div className="form-content">
                     <div className="form-group">
@@ -74,7 +74,7 @@ function LoginForm() {
                     </div>
                 </div>
                 <button type="submit" className="btn btn-primary login-form-btn"><b>Log In</b></button>
-                <Link to='/register' className="register-text">Register here!</Link>
+                <span className="register-text">Need an account? <Link to='/register' className="register-link"><b>Sign up</b></Link></span>
             </form>
         </div>
     );
