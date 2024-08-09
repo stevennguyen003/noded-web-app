@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // HARDCODED FOR NOW
-export const USERS_API = `http://localhost:4000/api/users`;
+export const USERS_API = `${process.env.REACT_APP_BACKEND_URL}/api/users`;
 
 export interface User {
     _id: string;

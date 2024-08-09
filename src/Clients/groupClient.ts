@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // HARDCODED FOR NOW
-export const GROUPS_API = `http://localhost:4000/api/groups`;
+export const GROUPS_API = `${process.env.REACT_APP_BACKEND_URL}/api/groups`;
 
 export interface Group {
     _id: string;

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // HARDCODED FOR NOW
-export const NOTES_API = `http://localhost:4000/api/notes`;
+export const NOTES_API = `${process.env.REACT_APP_BACKEND_URL}/api/notes`;
 
 export interface User {
     _id: string;
