@@ -1,4 +1,5 @@
 import axios from "axios";
+axios.defaults.withCredentials = true;
 
 // HARDCODED FOR NOW
 export const USERS_API = `${process.env.REACT_APP_BACKEND_URL}/api/users`;

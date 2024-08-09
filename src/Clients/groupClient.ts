@@ -1,4 +1,5 @@
 import axios from "axios";
+axios.defaults.withCredentials = true;
 
 // HARDCODED FOR NOW
 export const GROUPS_API = `${process.env.REACT_APP_BACKEND_URL}/api/groups`;
