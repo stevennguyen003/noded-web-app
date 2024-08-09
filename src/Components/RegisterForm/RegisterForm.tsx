@@ -74,7 +74,7 @@ function RegisterForm() {
             <form onSubmit={handleSubmit} className="create-account-form">
                 <div className="form-content">
                     <div className="form-group">
-                        <label htmlFor="firstNameInput" className="register-form-label"><b>FIRST NAME</b>
+                        <label htmlFor="firstNameInput" className="register-form-label"><b>First Name</b>
                             {fieldErrors.firstName && <span className="error-message"><i> - This field is required</i></span>}
                         </label>
                         <input
@@ -87,7 +87,7 @@ function RegisterForm() {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="lastNameInput" className="register-form-label"><b>LAST NAME</b>
+                        <label htmlFor="lastNameInput" className="register-form-label"><b>Last Name</b>
                             {fieldErrors.lastName && <span className="error-message"><i> - This field is required</i></span>}
                         </label>
                         <input
@@ -100,7 +100,7 @@ function RegisterForm() {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="usernameInput" className="register-form-label"><b>USERNAME</b>
+                        <label htmlFor="usernameInput" className="register-form-label"><b>Username</b>
                             {fieldErrors.username && <span className="error-message"><i> - This field is required</i></span>}
                             {registerFailed && <span className="error-message"><i> - User already exists</i></span>}
                         </label>
@@ -113,7 +113,7 @@ function RegisterForm() {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="passwordInput" className="register-form-label"><b>PASSWORD</b>
+                        <label htmlFor="passwordInput" className="register-form-label"><b>Password</b>
                             {fieldErrors.password && <span className="error-message"><i> - This field is required</i></span>}
                         </label>
                         <input
@@ -126,7 +126,7 @@ function RegisterForm() {
                     </div>
                 </div>
                 <button type="submit" className="btn btn-primary register-form-btn"><b>Register</b></button>
-                <Link to='/' className="register-text">Have an account?</Link>
+                <span className="register-text">Have an account? <Link to='/login' className="register-link"><b>Sign in</b></Link></span>
             </form>
         </div>
     );

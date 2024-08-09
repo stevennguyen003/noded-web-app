@@ -3,13 +3,46 @@
     position: sticky;
     top: 0;
     width: 100%;
+    padding: 15px;
     display: flex;
     flex-direction: row;
-    align-items: center;
+}
+
+.landing-page-left-main {
+    height: 100%;
+    width: 60%;
+    background-image: url("/public/Images/art.jpeg");
+    background-size: cover;
+    border-radius: 15px;
+    margin-right: 7.5px;
+}
+
+.landing-page-right-main {
+    height: 100%;
+    width: 40%;
+    margin-left: 7.5px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    background-image: white;
-    background-color: #FFE5E5;
-    background-image: 
-        radial-gradient(circle at 20% 20%, #FFD1D1 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, #FFCCCB 0%, transparent 50%);
+    align-items: center;
+}
+
+.landing-page-logo-container {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media (max-width: 800px) {
+    .landing-page-container {
+        align-items: center;
+        justify-content: center;
+    }
+    .landing-page-left-main {
+        display: none;
+    }
+    .landing-page-right-main {
+        margin: 0;
+    }
 }

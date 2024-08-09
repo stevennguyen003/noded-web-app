@@ -10,11 +10,11 @@
 }
 
 .login-form-title {
-    color: #303030;
+    color: #282828;
+    font-size: 2rem;
     font-family: "quiroh", sans-serif;
     font-weight: 700;
     font-style: normal;
-    font-size: 2rem;
 }
 
 .login-account-form {
@@ -28,18 +28,15 @@
 
 .login-form-label {
     font-size: 0.8rem;
-    color: #303030;
-    font-family: "quiroh", sans-serif;
-    font-weight: 700;
-    font-style: normal;
+    color: #282828;
+    margin-bottom: 3px;
 }
 
 .login-form-input {
-    background-color: rgb(255, 255, 255) !important;
-    border-color: lightgray;
-    border-width: 2px !important;
-    color: #303030 !important;
-    border-radius: 5px !important;
+    background-color: rgb(242, 242, 242) !important;
+    border: none !important;
+    color: #282828 !important;
+    border-radius: 10px !important;
 }
 
 .form-content {
@@ -50,9 +47,9 @@
 
 .login-form-btn {
     width: 100% !important;
-    background-color: #f47e73 !important;
+    background-color: rgb(79, 34, 240) !important;
     border: none !important;
-    border-radius: 5px !important;
+    border-radius: 10px !important;
     margin-top: 5%;
     margin-bottom: 1%;
 }
@@ -62,6 +59,11 @@
 }
 
 .register-text {
-    color: #cecece;
-    font-size: 0.8rem;
+    color: #282828;
+    font-size: 0.85rem;
+}
+
+.register-link {
+    text-decoration: none;
+    color: rgb(79, 34, 240);
 }

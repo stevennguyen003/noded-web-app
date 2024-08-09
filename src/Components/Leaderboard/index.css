@@ -6,8 +6,7 @@
 }
 
 .leaderboard-body-container {
-    background-color: lightblue;
+    border: solid 1px grey;
     flex-grow: 1;
-    border-radius: 15px;
     padding: 15px;
 }
