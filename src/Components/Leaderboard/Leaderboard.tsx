@@ -29,6 +29,12 @@ function Leaderboard({ group }: LeaderboardProps) {
         }
     }, [group]);
 
+    // Get the top 3 users for the podium
+    const sortedUsers = Array.from(userMap.entries());
+    const firstPlace = sortedUsers[0] ? sortedUsers[0][0] : null;
+    const secondPlace = sortedUsers[1] ? sortedUsers[1][0] : null;
+    const thirdPlace = sortedUsers[2] ? sortedUsers[2][0] : null;
+
 
     useEffect(() => {
         fetchUsers();
@@ -40,6 +46,11 @@ function Leaderboard({ group }: LeaderboardProps) {
                 <h1>Leaderboard</h1>
             </div>
             <div className="leaderboard-body-container">
+            <div className="leaderboard-podium-container">
+                    <div className="bar" id="bar2">{secondPlace ? secondPlace.username : "2nd"}</div>
+                    <div className="bar" id="bar1">{firstPlace ? firstPlace.username : "1st"}</div>
+                    <div className="bar" id="bar3">{thirdPlace ? thirdPlace.username : "3rd"}</div>
+                </div>
                 <table className="table">
                     <thead>
                         <tr>
@@ -54,7 +65,7 @@ function Leaderboard({ group }: LeaderboardProps) {
                             <tr key={user._id}>
                                 <th scope="row">{index + 1}</th>
                                 <td>{user.firstName}</td>
-                                <td>{user.username}</td> 
+                                <td>{user.username}</td>
                                 <td>{score}</td>
                             </tr>
                         ))}

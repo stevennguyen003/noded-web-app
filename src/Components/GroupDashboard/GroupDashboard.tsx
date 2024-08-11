@@ -18,7 +18,7 @@ function GroupDashboard({ group }: GroupDashboardProps) {
             </div>
             <div className="right-container">
                 <UserActivity />
-                <QuestionFlashcard />
+                <QuestionFlashcard group={group} />
             </div>
         </div>
     );

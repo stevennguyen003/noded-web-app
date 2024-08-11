@@ -12,7 +12,8 @@ export interface Group {
     };
     userScores: {
         [userId: string]: number;
-    },
+    };
+    noteIds: string[];
     profilePicture: string;
     inviteLink: string;
 }

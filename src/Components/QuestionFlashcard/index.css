@@ -9,4 +9,29 @@
     flex-grow: 1;
     background-color: lightblue;
     border-radius: 15px;
+    display: flex;
+    flex-direction: column;
 }
+
+.question-container {
+    height: 10%;
+    width: 100%;
+}
+
+.choices-container {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.choice {
+    width: 40%;
+    height: 20%;
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    margin: 1vw
+}
+

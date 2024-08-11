@@ -1,6 +1,7 @@
 import "./index.css";
 import * as groupClient from "../../Clients/groupClient";
 import * as userClient from "../../Clients/userClient"
+import * as noteClient from "../../Clients/noteClient"
 import { Group } from "../../Clients/groupClient";
 import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
@@ -112,7 +113,10 @@ function GroupList() {
         try {
             const newGroup = await createGroup(groupName);
             if (file) {
-                await groupClient.uploadNote(newGroup._id, file);
+                const newNote = await groupClient.uploadNote(newGroup._id, file);
+                // Generate questions when uploading a lecture
+                const questions = await noteClient.generateQuestions(newNote._id);
+                console.log("Generated questions:", questions);
                 // Refresh the group data to get the updated note information
                 const updatedGroup = await groupClient.findGroupById(newGroup._id);
                 setGroups(prevGroups => [...prevGroups, updatedGroup]);
