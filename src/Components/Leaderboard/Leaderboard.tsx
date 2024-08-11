@@ -7,19 +7,28 @@ interface LeaderboardProps { group?: groupClient.Group; }
 // Component to represent the leaderboard for the group
 function Leaderboard({ group }: LeaderboardProps) {
     // Holds all user profiles within the group
-    const [users, setUsers] = useState<userClient.User[]>([]);
+    const [userMap, setUserMap] = useState<Map<userClient.User, number>>(new Map<userClient.User, number>());
     // Fetch all users in the group
     const fetchUsers = useCallback(async () => {
-        if (!group || !group.userRoles) return;
-        const userPromises = Object.keys(group.userRoles).map(id => userClient.findUserById(id));
+        if (!group || !group.userScores) return;
+        const userIds = Object.keys(group.userScores);
+        // Get each user object based on IDs
+        const userPromises = userIds.map(id => userClient.findUserById(id));
         try {
             const usersArray = await Promise.all(userPromises);
-            console.log("Users in group:", usersArray);
-            setUsers(usersArray);
+            // Create a new map with user objects as keys and scores as values
+            const userMap = new Map<userClient.User, number>();
+            usersArray.forEach(user => {
+                const score = group.userScores[user._id];
+                userMap.set(user, score);
+            });
+            setUserMap(userMap);
+            console.log("userMap:", userMap);
         } catch (error) {
             console.error("Failed to fetch users in group:", error);
         }
     }, [group]);
+
 
     useEffect(() => {
         fetchUsers();
@@ -41,22 +50,14 @@ function Leaderboard({ group }: LeaderboardProps) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>@twitter</td>
-                        </tr>
+                        {Array.from(userMap.entries()).map(([user, score], index) => (
+                            <tr key={user._id}>
+                                <th scope="row">{index + 1}</th>
+                                <td>{user.firstName}</td>
+                                <td>{user.username}</td> 
+                                <td>{score}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
@@ -64,9 +65,3 @@ function Leaderboard({ group }: LeaderboardProps) {
     );
 }
 export default Leaderboard;
-
-{/* {users.map((user) => (
-                    <div key={user._id} className="group-header-container">
-                        <h1>{user.firstName}</h1>
-                    </div>
-                ))} */}
