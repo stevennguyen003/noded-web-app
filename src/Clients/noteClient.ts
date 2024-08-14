@@ -14,7 +14,12 @@ export interface Note {
 export interface Quiz {
     _id: string;
     question: string;
-    options: string[];
+    options: {
+        a: string;
+        b: string;
+        c: string;
+        d: string;
+    };
     correctAnswer: string;
 }
 
