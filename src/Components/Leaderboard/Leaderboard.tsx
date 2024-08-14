@@ -1,5 +1,5 @@
 import "./index.css";
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 import * as userClient from "../../Clients/userClient";
 import * as groupClient from "../../Clients/groupClient";
 
@@ -9,24 +9,25 @@ function Leaderboard({ group }: LeaderboardProps) {
     // Holds all user profiles within the group
     const [userMap, setUserMap] = useState<Map<userClient.User, number>>(new Map<userClient.User, number>());
     // Fetch all users in the group
-    const fetchUsers = useCallback(async () => {
-        if (!group || !group.userScores) return;
-        const userIds = Object.keys(group.userScores);
-        // Get each user object based on IDs
-        const userPromises = userIds.map(id => userClient.findUserById(id));
-        try {
-            const usersArray = await Promise.all(userPromises);
-            // Create a new map with user objects as keys and scores as values
-            const userMap = new Map<userClient.User, number>();
-            usersArray.forEach(user => {
-                const score = group.userScores[user._id];
-                userMap.set(user, score);
-            });
-            setUserMap(userMap);
-            console.log("userMap:", userMap);
-        } catch (error) {
-            console.error("Failed to fetch users in group:", error);
-        }
+    useEffect(() => {
+        const fetchUsers = async () => {
+            if (!group || !group.userScores) return;
+            const userIds = Object.keys(group.userScores);
+            try {
+                const usersArray = await Promise.all(userIds.map(id => userClient.findUserById(id)));
+                const userMap = new Map<userClient.User, number>();
+                usersArray.forEach(user => {
+                    const score = group.userScores[user._id];
+                    userMap.set(user, score);
+                });
+                setUserMap(userMap);
+                console.log("userMap:", userMap);
+            } catch (error) {
+                console.error("Failed to fetch users in group:", error);
+            }
+        };
+
+        fetchUsers();
     }, [group]);
 
     // Get the top 3 users for the podium
@@ -35,18 +36,13 @@ function Leaderboard({ group }: LeaderboardProps) {
     const secondPlace = sortedUsers[1] ? sortedUsers[1][0] : null;
     const thirdPlace = sortedUsers[2] ? sortedUsers[2][0] : null;
 
-
-    useEffect(() => {
-        fetchUsers();
-    }, [fetchUsers]);
-
     return (
         <div className="leaderboard-container">
             <div className="leaderboard-header">
                 <h1>Leaderboard</h1>
             </div>
             <div className="leaderboard-body-container">
-            <div className="leaderboard-podium-container">
+                <div className="leaderboard-podium-container">
                     <div className="bar" id="bar2">{secondPlace ? secondPlace.username : "2nd"}</div>
                     <div className="bar" id="bar1">{firstPlace ? firstPlace.username : "1st"}</div>
                     <div className="bar" id="bar3">{thirdPlace ? thirdPlace.username : "3rd"}</div>

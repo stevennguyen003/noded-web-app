@@ -8,9 +8,12 @@ import * as groupClient from "../../Clients/groupClient";
 import * as noteClient from "../../Clients/noteClient"
 import "./index.css";
 
-interface GroupDashboardProps { group?: groupClient.Group; }
+interface GroupDashboardProps {
+    group?: groupClient.Group;
+    onUpdateGroup: (updatedGroup: groupClient.Group) => void;
+}
 // Component to represent the entire group dashboard
-function GroupDashboard({ group }: GroupDashboardProps) {
+function GroupDashboard({ group, onUpdateGroup }: GroupDashboardProps) {
     return (
         <div className="dashboard-page-container">
             <div className="left-container">
@@ -18,7 +21,7 @@ function GroupDashboard({ group }: GroupDashboardProps) {
             </div>
             <div className="right-container">
                 <UserActivity />
-                <QuestionFlashcard group={group} />
+                <QuestionFlashcard group={group} onUpdateGroup={onUpdateGroup} />
             </div>
         </div>
     );

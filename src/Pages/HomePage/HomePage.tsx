@@ -46,7 +46,7 @@ function HomePage() {
             </div>
             <div className="right-main">
                 {DashboardToRender === GroupDashboard ? (
-                    <GroupDashboard group={group} />
+                    <GroupDashboard group={group} onUpdateGroup={setGroup} />
                 ) : (
                     <DefaultDashboard />
                 )}
