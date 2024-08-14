@@ -16,6 +16,7 @@ function UserProfile() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     // Default profile picture if user does not upload one
     const defaultProfilePicUrl = "../Images/default.png";
+
     // Fetch the session user's profile
     const fetchProfile = async () => {
         try {
@@ -33,14 +34,13 @@ function UserProfile() {
     useEffect(() => {
         fetchProfile();
     }, []);
+
     // If user is editing their profile picture, open the modal
-    const handleEditProfilePicture = () => {
-        setIsModalOpen(true);
-    }
+    const handleEditProfilePicture = () => { setIsModalOpen(true); }
+
     // Close the modal
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    }
+    const handleCloseModal = () => { setIsModalOpen(false); }
+    
     // Uploading a profile picture
     const handleUploadProfilePicture = async (file: File) => {
         try {

@@ -8,14 +8,18 @@ interface LeaderboardProps { group?: groupClient.Group; }
 function Leaderboard({ group }: LeaderboardProps) {
     // Holds all user profiles within the group
     const [userMap, setUserMap] = useState<Map<userClient.User, number>>(new Map<userClient.User, number>());
+
     // Fetch all users in the group
     useEffect(() => {
         const fetchUsers = async () => {
             if (!group || !group.userScores) return;
+
+            // Map through user IDs and get the user objects
             const userIds = Object.keys(group.userScores);
             try {
                 const usersArray = await Promise.all(userIds.map(id => userClient.findUserById(id)));
                 const userMap = new Map<userClient.User, number>();
+                // Assign the scores to the map
                 usersArray.forEach(user => {
                     const score = group.userScores[user._id];
                     userMap.set(user, score);

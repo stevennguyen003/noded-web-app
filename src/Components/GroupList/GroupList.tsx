@@ -15,6 +15,7 @@ function GroupList() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     // Default profile picture
     const defaultGroupProfilePicUrl = "../Images/group.jpg";
+
     // Creating a new group
     const createGroup = async (groupName: string): Promise<Group> => {
         try {
@@ -28,11 +29,15 @@ function GroupList() {
                 },
                 userScores: {
                     [user._id]: 0
-                }
+                },
+                userProgress: {
+                    [user._id]: 0
+                },
             };
             const createdGroup = await groupClient.createGroup(newGroup);
             console.log("Group created:", createdGroup);
-            // Update user's groups
+
+            // Update user's group IDs array
             const updatedUser = await userClient.updateUser({
                 ...user,
                 groups: [...user.groups, createdGroup._id]
@@ -44,6 +49,7 @@ function GroupList() {
             throw error;
         }
     }
+
     // Joining a group
     const joinGroup = async (inviteCode: string): Promise<Group> => {
         try {
@@ -51,6 +57,7 @@ function GroupList() {
             const user = await userClient.profile();
             const joinedGroup = await groupClient.findGroupByInviteCode(inviteCode);
             console.log("Group found:", joinedGroup);
+
             // Update group's users
             const updatedGroup = await groupClient.updateGroup({
                 ...joinedGroup,
@@ -61,10 +68,16 @@ function GroupList() {
                 userScores: {
                     ...joinedGroup.userScores,
                     [user._id]: 0
+                },
+                userProgress: {
+                    ...joinedGroup.userProgress,
+                    [user._id]: 0
+
                 }
             });
             console.log("Group's users are updated:", updatedGroup);
-            // Update user's groups
+
+            // Update user's group ID array
             const updatedUser = await userClient.updateUser({
                 ...user,
                 groups: [...user.groups, joinedGroup._id]
@@ -80,15 +93,16 @@ function GroupList() {
     const fetchGroups = useCallback(async () => {
         try {
             const user = await userClient.profile();
+
+            // Map through user's group IDs and fetch each group
             if (user.groups && user.groups.length > 0) {
-                // Map through user's group IDs and fetch each group
                 const fetchedGroups = await Promise.all(
                     user.groups.map((groupId: any) => groupClient.findGroupById(groupId))
                 );
                 console.log("Groups found:", fetchedGroups);
                 setGroups(fetchedGroups);
-            } else {
                 // If user has no groups, set groups to an empty array
+            } else {
                 setGroups([]);
             }
         } catch (error) {
@@ -101,22 +115,22 @@ function GroupList() {
     }, [fetchGroups]);
 
     // If user is creating a new group, open the modal
-    const handleCreateGroup = () => {
-        setIsModalOpen(true);
-    }
+    const handleCreateGroup = () => { setIsModalOpen(true); }
+    
     // Close the modal
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    }
+    const handleCloseModal = () => { setIsModalOpen(false); }
+
     // Submitting form data for group
     const handleSubmit = async (groupName: string, file: File | null) => {
         try {
             const newGroup = await createGroup(groupName);
             if (file) {
                 const newNote = await groupClient.uploadNote(newGroup._id, file);
+
                 // Generate questions when uploading a lecture
                 const questions = await noteClient.generateQuestions(newNote._id);
                 console.log("Generated questions:", questions);
+
                 // Refresh the group data to get the updated note information
                 const updatedGroup = await groupClient.findGroupById(newGroup._id);
                 setGroups(prevGroups => [...prevGroups, updatedGroup]);
@@ -128,6 +142,7 @@ function GroupList() {
             console.error("Error creating group:", error);
         }
     };
+
     // Submitting invite code for group
     const handleJoin = async (inviteCode: string) => {
         try {

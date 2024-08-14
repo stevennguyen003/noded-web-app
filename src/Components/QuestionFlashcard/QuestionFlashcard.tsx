@@ -39,6 +39,10 @@ function QuestionFlashcard({ group, onUpdateGroup }: QuestionFlashcardProps) {
             try {
                 const profile = await userClient.profile();
                 setUserId(profile._id);
+                if (group?.userProgress) {
+                    const userProgress = group.userProgress[profile._id] || 0;
+                    setCurrentQuizIndex(userProgress);
+                }
             } catch (error) {
                 console.error("Error fetching user profile:", error);
             }
@@ -46,47 +50,41 @@ function QuestionFlashcard({ group, onUpdateGroup }: QuestionFlashcardProps) {
 
         fetchNotes();
         fetchUserId();
-    }, [group]);
+    }, [group, quizzes.length]);
 
     // Handle quiz submission
     const handleAnswerClick = async (selectedAnswer: string) => {
-        const currentQuiz = quizzes[currentQuizIndex];
-        if (currentQuiz && selectedAnswer === currentQuiz.correctAnswer) {
-            if (group && userId) {
-                try {
-                    // Increment the user's score
-                    const updatedUserScores = { ...group.userScores };
-                    if (updatedUserScores[userId] != null) {
-                        updatedUserScores[userId] += 1;
-                    } else {
-                        updatedUserScores[userId] = 1;
-                    }
+        if (!group || !userId) return;
+        try {
+            const updatedGroup = { ...group };
+            const currentQuiz = quizzes[currentQuizIndex];
 
-                    // Update scores in the group object
-                    const updatedGroup = {
-                        ...group,
-                        userScores: updatedUserScores
-                    };
-
-                    // Update the group in the database
-                    await groupClient.updateGroup(updatedGroup);
-                    console.log("Score updated successfully");
-
-                    // Fetch the updated group
-                    const refreshedGroup = await groupClient.findGroupById(group._id);
-                    onUpdateGroup(refreshedGroup);
-
-                } catch (error) {
-                    console.error("Error updating score:", error);
-                }
+            // Increment user's score if the answer is correct
+            if (currentQuiz && selectedAnswer === currentQuiz.correctAnswer) {
+                updatedGroup.userScores = updatedGroup.userScores || {};
+                updatedGroup.userScores[userId] = (updatedGroup.userScores[userId] || 0) + 1;
             }
 
-            // Move to the next quiz
+            // Increment user's progress regardless of the answer
+            updatedGroup.userProgress = updatedGroup.userProgress || {};
+            updatedGroup.userProgress[userId] = (updatedGroup.userProgress[userId] || 0) + 1;
+
+            // Update the group in the database
+            await groupClient.updateGroup(updatedGroup);
+            console.log("Group updated successfully");
+
+            // Fetch and update the refreshed group
+            const refreshedGroup = await groupClient.findGroupById(group._id);
+            onUpdateGroup(refreshedGroup);
+
+            // Move to the next quiz or complete
             if (currentQuizIndex + 1 < quizzes.length) {
                 setCurrentQuizIndex(prevIndex => prevIndex + 1);
             } else {
                 setIsCompleted(true);
             }
+        } catch (error) {
+            console.error("Error updating group:", error);
         }
     };
 
