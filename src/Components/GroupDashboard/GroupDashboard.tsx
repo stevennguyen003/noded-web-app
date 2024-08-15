@@ -16,7 +16,7 @@ function GroupDashboard({ group, onUpdateGroup }: GroupDashboardProps) {
                 <Leaderboard group={group} />
             </div>
             <div className="right-container">
-                <UserActivity />
+                <UserActivity group={group} />
                 <QuestionFlashcard group={group} onUpdateGroup={onUpdateGroup} />
             </div>
         </div>

@@ -6,7 +6,20 @@
 }
 
 .user-activity-body-container {
+    border: solid 1px grey;
     flex-grow: 1;
-    background-color: lightblue;
     border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+.day-tracker-container {
+    flex: 1; 
+    padding: 10px;
+    text-align: center;
+    background-color: #e0e0e0;
+    margin: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
 }

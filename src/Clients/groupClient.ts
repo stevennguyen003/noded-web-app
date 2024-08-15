@@ -19,11 +19,21 @@ export interface Group {
     userStreak: {
         [userId: string]: number;
     };
+    userWeeklyProgress: {
+        [userId: string]: {
+            Mon: boolean;
+            Tue: boolean;
+            Wed: boolean;
+            Thu: boolean;
+            Fri: boolean;
+        };
+    };
     lastResetDate: Date;
     noteIds: string[];
     profilePicture: string;
     inviteLink: string;
 }
+
 
 const api = axios.create({
     withCredentials: true,
@@ -37,6 +47,15 @@ export const createGroup = async (name: string, creatorId: string) => {
         userScores: { [creatorId]: 0 },
         userProgress: { [creatorId]: 0 },
         userStreak: { [creatorId]: 0 },
+        userWeeklyProgress: {
+            [creatorId]: {
+                Mon: false,
+                Tue: false,
+                Wed: false,
+                Thu: false,
+                Fri: false
+            }
+        },
         lastResetDate: new Date(),
         noteIds: [],
         profilePicture: '',
@@ -65,6 +84,16 @@ export const joinGroup = async (group: any, userId: string) => {
             ...group.userStreak,
             [userId]: 0
         },
+        userWeeklyProgress: {
+            ...group.userWeeklyProgress,
+            [userId]: {
+                Mon: false,
+                Tue: false,
+                Wed: false,
+                Thu: false,
+                Fri: false
+            }
+        }
     };
     const response = await api.put(`${GROUPS_API}/${group._id}`, joiningGroup);
     return response.data;
