@@ -9,7 +9,7 @@ interface QuestionFlashcardProps {
     group?: groupClient.Group;
     onUpdateGroup: (updatedGroup: groupClient.Group) => void;
 }
-
+// Component to represent the quiz desplay on the dashboard
 function QuestionFlashcard({ group, onUpdateGroup }: QuestionFlashcardProps) {
     // Represents the session user's ID
     const [userId, setUserId] = useState<string | null>(null);
@@ -19,38 +19,37 @@ function QuestionFlashcard({ group, onUpdateGroup }: QuestionFlashcardProps) {
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
     // Represents if all quizzes have been completed
     const [isCompleted, setIsCompleted] = useState(false);
-    // Fetch notes uploaded to the group
+
     useEffect(() => {
-        const fetchNotes = async () => {
+        // Reset state when group changes
+        setQuizzes([]);
+        setCurrentQuizIndex(0);
+        setIsCompleted(false);
+
+        const fetchData = async () => {
             if (!group || !group.noteIds || group.noteIds.length === 0) return;
             try {
                 const fetchedNotes = await Promise.all(
                     group.noteIds.map((noteId: any) => noteClient.findNoteById(noteId))
                 );
-                console.log("Fetched notes:", fetchedNotes);
                 const fetchedQuizzes = await noteClient.findAllQuizzes(fetchedNotes[0]._id);
-                console.log("Fetched quizzes:", fetchedQuizzes);
                 setQuizzes(fetchedQuizzes);
-            } catch (error) {
-                console.error("Error fetching groups:", error);
-            }
-        };
-        const fetchUserId = async () => {
-            try {
+
                 const profile = await userClient.profile();
                 setUserId(profile._id);
-                if (group?.userProgress) {
+
+                if (group.userProgress) {
                     const userProgress = group.userProgress[profile._id] || 0;
                     setCurrentQuizIndex(userProgress);
+                    setIsCompleted(userProgress >= fetchedQuizzes.length);
                 }
             } catch (error) {
-                console.error("Error fetching user profile:", error);
+                console.error("Error fetching data:", error);
             }
         };
 
-        fetchNotes();
-        fetchUserId();
-    }, [group, quizzes.length]);
+        fetchData();
+    }, [group]);
 
     // Handle quiz submission
     const handleAnswerClick = async (selectedAnswer: string) => {
@@ -88,6 +87,7 @@ function QuestionFlashcard({ group, onUpdateGroup }: QuestionFlashcardProps) {
         }
     };
 
+    // Quiz completion display
     if (isCompleted) {
         return (
             <div className="question-flashcard-container">

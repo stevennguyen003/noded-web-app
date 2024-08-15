@@ -21,20 +21,7 @@ function GroupList() {
         try {
             // Fetch session user to establish as the group's admin
             const user = await userClient.profile();
-            const newGroup = {
-                _id: "",
-                name: groupName,
-                userRoles: {
-                    [user._id]: 'admin'
-                },
-                userScores: {
-                    [user._id]: 0
-                },
-                userProgress: {
-                    [user._id]: 0
-                },
-            };
-            const createdGroup = await groupClient.createGroup(newGroup);
+            const createdGroup = await groupClient.createGroup(groupName, user._id);
             console.log("Group created:", createdGroup);
 
             // Update user's group IDs array
@@ -59,22 +46,7 @@ function GroupList() {
             console.log("Group found:", joinedGroup);
 
             // Update group's users
-            const updatedGroup = await groupClient.updateGroup({
-                ...joinedGroup,
-                userRoles: {
-                    ...joinedGroup.userRoles,
-                    [user._id]: 'user'
-                },
-                userScores: {
-                    ...joinedGroup.userScores,
-                    [user._id]: 0
-                },
-                userProgress: {
-                    ...joinedGroup.userProgress,
-                    [user._id]: 0
-
-                }
-            });
+            const updatedGroup = await groupClient.joinGroup(joinedGroup, user._id);
             console.log("Group's users are updated:", updatedGroup);
 
             // Update user's group ID array

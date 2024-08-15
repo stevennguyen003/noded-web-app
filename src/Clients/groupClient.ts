@@ -15,7 +15,11 @@ export interface Group {
     };
     userProgress: {
         [userId: string]: number;
-    }
+    };
+    userStreak: {
+        [userId: string]: number;
+    };
+    lastResetDate: Date;
     noteIds: string[];
     profilePicture: string;
     inviteLink: string;
@@ -26,8 +30,43 @@ const api = axios.create({
 });
 
 // Create a group
-export const createGroup = async (group: any) => {
-    const response = await api.post(`${GROUPS_API}`, group);
+export const createGroup = async (name: string, creatorId: string) => {
+    const newGroup = {
+        name,
+        userRoles: { [creatorId]: 'admin' },
+        userScores: { [creatorId]: 0 },
+        userProgress: { [creatorId]: 0 },
+        userStreak: { [creatorId]: 0 },
+        lastResetDate: new Date(),
+        noteIds: [],
+        profilePicture: '',
+    };
+    const response = await api.post(`${GROUPS_API}`, newGroup);
+    return response.data;
+};
+
+// Join a group
+export const joinGroup = async (group: any, userId: string) => {
+    const joiningGroup = {
+        ...group,
+        userRoles: {
+            ...group.userRoles,
+            [userId]: 'user'
+        },
+        userScores: {
+            ...group.userScores,
+            [userId]: 0
+        },
+        userProgress: {
+            ...group.userProgress,
+            [userId]: 0
+        },
+        userStreak: {
+            ...group.userStreak,
+            [userId]: 0
+        },
+    };
+    const response = await api.put(`${GROUPS_API}/${group._id}`, joiningGroup);
     return response.data;
 };
 
