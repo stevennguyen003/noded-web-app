@@ -8,123 +8,92 @@ import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import CreateGroupModal from "./NewGroupModalProps";
 
+interface GroupListProps {
+    sessionProfile?: userClient.User;
+    onProfileUpdate: (updatedProfile: userClient.User) => void;
+}
 // Component to represent the list of groups the user is in
-function GroupList() {
+function GroupList({ sessionProfile, onProfileUpdate }: GroupListProps) {
     const [groups, setGroups] = useState<Group[]>([]);
     // State to represent if the modal is open
     const [isModalOpen, setIsModalOpen] = useState(false);
     // Default profile picture
     const defaultGroupProfilePicUrl = "../Images/group.jpg";
 
-    // Creating a new group
-    const createGroup = async (groupName: string): Promise<Group> => {
-        try {
-            // Fetch session user to establish as the group's admin
-            const user = await userClient.profile();
-            const createdGroup = await groupClient.createGroup(groupName, user._id);
-            console.log("Group created:", createdGroup);
-
-            // Update user's group IDs array
-            const updatedUser = await userClient.updateUser({
-                ...user,
-                groups: [...user.groups, createdGroup._id]
-            });
-            console.log("Appended to user's groups:", updatedUser);
-            return createdGroup;
-        } catch (error) {
-            console.error("Error creating group:", error);
-            throw error;
-        }
-    }
-
-    // Joining a group
-    const joinGroup = async (inviteCode: string): Promise<Group> => {
-        try {
-            // Fetch session user to establish as the group's admin
-            const user = await userClient.profile();
-            const joinedGroup = await groupClient.findGroupByInviteCode(inviteCode);
-            console.log("Group found:", joinedGroup);
-
-            // Update group's users
-            const updatedGroup = await groupClient.joinGroup(joinedGroup, user._id);
-            console.log("Group's users are updated:", updatedGroup);
-
-            // Update user's group ID array
-            const updatedUser = await userClient.updateUser({
-                ...user,
-                groups: [...user.groups, joinedGroup._id]
-            });
-            console.log("Appended to user's groups:", updatedUser);
-            return joinedGroup;
-        } catch (error) {
-            console.error("Error creating group:", error);
-            throw error;
-        }
-    }
     // Fetch groups available to user
     const fetchGroups = useCallback(async () => {
+        if (!sessionProfile) return;
         try {
-            const user = await userClient.profile();
-
-            // Map through user's group IDs and fetch each group
-            if (user.groups && user.groups.length > 0) {
-                const fetchedGroups = await Promise.all(
-                    user.groups.map((groupId: any) => groupClient.findGroupById(groupId))
-                );
-                console.log("Groups found:", fetchedGroups);
-                setGroups(fetchedGroups);
-                // If user has no groups, set groups to an empty array
-            } else {
-                setGroups([]);
-            }
+            const fetchedGroups = await Promise.all(
+                sessionProfile.groups.map((groupId: string) => groupClient.findGroupById(groupId))
+            );
+            setGroups(fetchedGroups);
         } catch (error) {
             console.error("Error fetching groups:", error);
         }
-    }, []);
+    }, [sessionProfile]);
 
     useEffect(() => {
         fetchGroups();
     }, [fetchGroups]);
 
+    // Creating a new group
+    const createGroup = async (groupName: string, file: File | null): Promise<void> => {
+        if (!sessionProfile) return;
+        try {
+            const createdGroup = await groupClient.createGroup(groupName, sessionProfile._id);
+            const updatedUser = await userClient.updateUser({
+                ...sessionProfile,
+                groups: [...sessionProfile.groups, createdGroup._id]
+            });
+            onProfileUpdate(updatedUser);
+            if (file) {
+                const newNote = await groupClient.uploadNote(createdGroup._id, file);
+                await noteClient.generateQuestions(newNote._id);
+                const updatedGroup = await groupClient.findGroupById(createdGroup._id);
+                setGroups(prevGroups => [...prevGroups, updatedGroup]);
+            } else {
+                setGroups(prevGroups => [...prevGroups, createdGroup]);
+            }
+        } catch (error) {
+            console.error("Error creating group:", error);
+        }
+    }
+
+    // Joining a group
+    const joinGroup = async (inviteCode: string): Promise<void> => {
+        if (!sessionProfile) return;
+        try {
+            const joinedGroup = await groupClient.findGroupByInviteCode(inviteCode);
+            const updatedGroup = await groupClient.joinGroup(joinedGroup, sessionProfile._id);
+            const updatedUser = await userClient.updateUser({
+                ...sessionProfile,
+                groups: [...sessionProfile.groups, joinedGroup._id]
+            });
+            onProfileUpdate(updatedUser);
+            setGroups(prevGroups => [...prevGroups, updatedGroup]);
+        } catch (error) {
+            console.error("Error joining group:", error);
+        }
+    }
+
     // If user is creating a new group, open the modal
     const handleCreateGroup = () => { setIsModalOpen(true); }
-    
+
     // Close the modal
     const handleCloseModal = () => { setIsModalOpen(false); }
 
     // Submitting form data for group
     const handleSubmit = async (groupName: string, file: File | null) => {
-        try {
-            const newGroup = await createGroup(groupName);
-            if (file) {
-                const newNote = await groupClient.uploadNote(newGroup._id, file);
-
-                // Generate questions when uploading a lecture
-                const questions = await noteClient.generateQuestions(newNote._id);
-                console.log("Generated questions:", questions);
-
-                // Refresh the group data to get the updated note information
-                const updatedGroup = await groupClient.findGroupById(newGroup._id);
-                setGroups(prevGroups => [...prevGroups, updatedGroup]);
-            } else {
-                setGroups(prevGroups => [...prevGroups, newGroup]);
-            }
-            setIsModalOpen(false);
-        } catch (error) {
-            console.error("Error creating group:", error);
-        }
+        await createGroup(groupName, file);
+        setIsModalOpen(false);
     };
 
     // Submitting invite code for group
     const handleJoin = async (inviteCode: string) => {
-        try {
-            const joinedGroup = await joinGroup(inviteCode);
-            setGroups(prevGroups => [...prevGroups, joinedGroup]);
-            setIsModalOpen(false);
-        } catch (error) {
-            console.error("Error joining group:", error);
-        }
-    }
+        await joinGroup(inviteCode);
+        setIsModalOpen(false);
+    };
 
     return (
         <div className="group-list-container">
