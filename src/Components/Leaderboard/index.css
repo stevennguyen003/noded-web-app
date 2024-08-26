@@ -1,3 +1,5 @@
+@import url("https://use.typekit.net/cyh5jpi.css");
+
 .leaderboard-container {
     height: 100%;
     width: 100%;
@@ -6,38 +8,56 @@
 }
 
 .leaderboard-body-container {
-    border: solid 1px grey;
     border-radius: 15px;
     flex-grow: 1;
-    padding: 15px;
     display: flex;
     flex-direction: column;
 }
 
+.leaderboard-header h3 {
+    font-family: "quiroh", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: rgb(64, 64, 64);
+    font-size: 1.5rem;
+}
+
 .leaderboard-podium-container {
-    height: 30%;
+    height: 40%;
     width: 100%;
+    background-color: rgb(248, 248, 248);
+    border-radius: 15px;
     align-self: center;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
 }
 
+.leaderboard-table-container {
+    padding: 15px;
+    flex-grow: 1;
+}
+
 .bar {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    background-color: pink;
-    width: 20%;
-    height: 100%;
+    width: 25%;
     text-align: center;
 }
 
+#bar1 {
+    height: 80%;
+    background-color: rgb(255, 235, 124);
+}
+
 #bar2 {
-    margin-left: 30px;
-    height: 70%;
+    margin-left: 45px;
+    height: 60%;
+    background-color: rgb(219, 219, 219);
 }
 
 #bar3 {
-    margin-right: 30px;
+    margin-right: 45px;
     height: 40%;
+    background-color: rgb(205, 165, 91);
 }

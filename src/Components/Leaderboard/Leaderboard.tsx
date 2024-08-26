@@ -41,9 +41,10 @@ function Leaderboard({ group }: LeaderboardProps) {
     const thirdPlace = sortedUsers[2] ? sortedUsers[2][0] : null;
 
     return (
+        
         <div className="leaderboard-container">
             <div className="leaderboard-header">
-                <h1>Leaderboard</h1>
+                <h3>Leaderboard</h3>
             </div>
             <div className="leaderboard-body-container">
                 <div className="leaderboard-podium-container">
@@ -51,26 +52,28 @@ function Leaderboard({ group }: LeaderboardProps) {
                     <div className="bar" id="bar1">{firstPlace ? firstPlace.username : "1st"}</div>
                     <div className="bar" id="bar3">{thirdPlace ? thirdPlace.username : "3rd"}</div>
                 </div>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Place</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Points</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {Array.from(userMap.entries()).map(([user, score], index) => (
-                            <tr key={user._id}>
-                                <th scope="row">{index + 1}</th>
-                                <td>{user.firstName}</td>
-                                <td>{user.username}</td>
-                                <td>{score}</td>
+                <div className="leaderboard-table-container">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Place</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Points</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {Array.from(userMap.entries()).map(([user, score], index) => (
+                                <tr key={user._id}>
+                                    <th scope="row">{index + 1}</th>
+                                    <td>{user.firstName}</td>
+                                    <td>{user.username}</td>
+                                    <td>{score}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

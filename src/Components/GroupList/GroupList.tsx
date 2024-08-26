@@ -129,7 +129,7 @@ function GroupList() {
     return (
         <div className="group-list-container">
             <div className="group-list-header-container">
-                <h3>GROUPS</h3>
+                <h3>Groups</h3>
                 <FaPlus onClick={handleCreateGroup} style={{ cursor: 'pointer' }} />
             </div>
             <div className="group-list-body-container">

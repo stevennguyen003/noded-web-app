@@ -1,11 +1,13 @@
 import "./index.css";
 import * as userClient from "../../Clients/userClient";
-import { FaPen } from "react-icons/fa";
+import { FaPen, FaUserAltSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import UploadProfilePictureModal from "./UploadProfilePictureModalProps";
 
 // Component to represent the session user's profile on home page
 function UserProfile() {
+    const navigate = useNavigate();
     // State to hold basic user information
     const [sessionProfile, setSessionProfile] = useState<userClient.User>();
     // State to hold user's profile picture url
@@ -14,6 +16,8 @@ function UserProfile() {
     const [isHovering, setIsHovering] = useState(false);
     // State to represent if the modal is open
     const [isModalOpen, setIsModalOpen] = useState(false);
+    // State to hold if use is trying to sign out
+    const [isSignOutConfirmOpen, setIsSignOutConfirmOpen] = useState(false);
     // Default profile picture if user does not upload one
     const defaultProfilePicUrl = "../Images/default.png";
 
@@ -40,7 +44,7 @@ function UserProfile() {
 
     // Close the modal
     const handleCloseModal = () => { setIsModalOpen(false); }
-    
+
     // Uploading a profile picture
     const handleUploadProfilePicture = async (file: File) => {
         try {
@@ -57,26 +61,66 @@ function UserProfile() {
         }
     }
 
+    // Handle state for attempting to sign out
+    const handleSignOutClick = () => {
+        setIsSignOutConfirmOpen(true);
+    }
+
+    // Sign out call
+    const handleSignOutConfirm = async () => {
+        try {
+            await userClient.signout();
+            // Navigate to login page after successful sign out
+            navigate('/login');
+            console.log("User signed out successfully");
+        } catch (error) {
+            console.error("Error signing out:", error);
+        }
+    }
+
+    const handleSignOutCancel = () => {
+        setIsSignOutConfirmOpen(false);
+    }
+
+    if (isSignOutConfirmOpen) {
+        return (
+            <div className="user-profile-container">
+                <div className="sign-out-confirm">
+                    <h3>Do you wish to sign out?</h3>
+                    <div className="sign-out-buttons">
+                        <button onClick={handleSignOutConfirm} className="confirm-button">Confirm</button>
+                        <button onClick={handleSignOutCancel} className="cancel-button">Go back</button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="user-profile-container">
-            <div
-                className="profile-image-container"
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
-            >
-                <img
-                    src={profilePic ? profilePic : defaultProfilePicUrl}
-                    alt="Profile"
-                    className="profile-image"
-                />
-                {isHovering && (
-                    <div className="profile-image-overlay" onClick={handleEditProfilePicture}>
-                        <FaPen />
-                    </div>
-                )}
+            <div className="user-profile-header">
+                <FaUserAltSlash className="logout-icon" onClick={handleSignOutClick} />
             </div>
-            <h3 className="profile-full-name">{sessionProfile?.firstName} {sessionProfile?.lastName}</h3>
-            <small className="profile-username">@{sessionProfile?.username}</small>
+            <div className="user-profile-content">
+                <div
+                    className="profile-image-container"
+                    onMouseEnter={() => setIsHovering(true)}
+                    onMouseLeave={() => setIsHovering(false)}
+                >
+                    <img
+                        src={profilePic ? profilePic : defaultProfilePicUrl}
+                        alt="Profile"
+                        className="profile-image"
+                    />
+                    {isHovering && (
+                        <div className="profile-image-overlay" onClick={handleEditProfilePicture}>
+                            <FaPen />
+                        </div>
+                    )}
+                </div>
+                <h3 className="profile-full-name">{sessionProfile?.firstName} {sessionProfile?.lastName}</h3>
+                <small className="profile-username">@{sessionProfile?.username}</small>
+            </div>
             <UploadProfilePictureModal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}

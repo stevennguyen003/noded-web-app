@@ -1,37 +1,122 @@
+@import url("https://use.typekit.net/cyh5jpi.css");
+
 .question-flashcard-container {
-    height: 60%;
+    flex-grow: 1;
     width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #8B5CF6;
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+}
+
+.question-flashcard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.question-flashcard-header h3 {
+    font-family: "quiroh", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: white;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.question-counter {
+    font-family: "quiroh", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
 }
 
 .question-flashcard-body-container {
     flex-grow: 1;
-    background-color: lightblue;
+    background-color: white;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
+    padding: 20px;
 }
 
 .question-container {
-    height: 10%;
-    width: 100%;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1rem;
 }
 
 .choices-container {
-    flex-grow: 1;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .choice {
-    width: 40%;
-    height: 20%;
-    background-color: white;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    margin: 1vw
+    background-color: #F3F4F6;
+    border-radius: 15px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: "quiroh", sans-serif;
+    color: #333;
+    font-size: 0.8rem;
 }
 
+.choice:hover {
+    background-color: #E5E7EB;
+}
+
+.choice.correct {
+    background-color: #10B981;
+    color: white;
+}
+
+.choice.incorrect {
+    background-color: #EF4444;
+    color: white;
+}
+
+.feedback-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: end;
+}
+
+.next-button {
+    background-color: #8B5CF6;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    font-family: "quiroh", sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.next-button:hover {
+    background-color: #7C3AED;
+}
+
+.next-button.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
