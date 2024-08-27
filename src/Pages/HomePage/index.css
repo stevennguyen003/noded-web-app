@@ -38,8 +38,8 @@ hr {
     background-color: white;
 }
 
-@media (max-width: 800px) {
+/* @media (max-width: 800px) {
     .left-main {
         display: none;
     }
-}
+} */
