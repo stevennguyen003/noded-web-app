@@ -5,6 +5,7 @@
     width: 100%;
     border-radius: 3px;
     overflow: hidden;
+    background-color: lightblue;
 }
 
 .group-list-header-container {
@@ -14,7 +15,6 @@
     flex-direction: row;
     align-items: center;
     flex-shrink: 0;
-
 }
 
 .group-list-header-container h3 {
@@ -49,6 +49,26 @@
     border-radius: 5px;
     padding-left: 10px;
     flex-shrink: 0;
+    color: rgb(64, 64, 64);
+    text-decoration: none;
+}
+
+.group-header-container.collapsed {
+    height: 10%;
+    width: 100%;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.group-header-link {
+    height: 15%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding-left: 10px;
+    flex-shrink: 0;
 }
 
 .group-header-container:hover {
@@ -66,11 +86,6 @@
     background-origin: border-box;
     background-clip: content-box, border-box;
     margin-right: 10px;
-}
-
-.group-header-name {
-    color: rgb(64, 64, 64);
-    text-decoration: none;
 }
 
 .create-group-modal-overlay {

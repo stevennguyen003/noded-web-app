@@ -9,7 +9,7 @@ import { FaPlus } from "react-icons/fa";
 import CreateGroupModal from "./NewGroupModalProps";
 
 // Component to represent the list of groups the user is in
-function GroupList() {
+function GroupList({ collapsed }: { collapsed: boolean }) {
     const [groups, setGroups] = useState<Group[]>([]);
     // State to represent if the modal is open
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -88,7 +88,7 @@ function GroupList() {
 
     // If user is creating a new group, open the modal
     const handleCreateGroup = () => { setIsModalOpen(true); }
-    
+
     // Close the modal
     const handleCloseModal = () => { setIsModalOpen(false); }
 
@@ -134,14 +134,16 @@ function GroupList() {
             </div>
             <div className="group-list-body-container">
                 {groups.map((group) => (
-                    <div key={group._id} className="group-header-container">
-                        <img
-                            src={defaultGroupProfilePicUrl}
-                            alt="Group Profile"
-                            className="group-profile-image"
-                        />
-                        <Link to={`/home/${group._id}`} className="group-header-name">{group.name}</Link>
-                    </div>
+                    <Link to={`/home/${group._id}`} key={group._id} className={`group-header-container ${collapsed ? 'collapsed' : ''}`}>
+                        <div>
+                            <img
+                                src={defaultGroupProfilePicUrl}
+                                alt="Group Profile"
+                                className="group-profile-image"
+                            />
+                            <span className="group-header-name">{group.name}</span>
+                        </div>
+                    </Link>
                 ))}
             </div>
             <CreateGroupModal

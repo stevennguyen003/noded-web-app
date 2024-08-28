@@ -10,6 +10,10 @@
     flex-shrink: 0;
 }
 
+.user-profile-container.collapsed {
+    height: 12%;
+}
+
 .user-profile-header {
     position: absolute;
     top: 10px;
@@ -40,8 +44,6 @@
     margin-bottom: 5%;
 }
 
-/* ... (keep the rest of the CSS unchanged) */
-
 .profile-image {
     width: 120px;
     height: 120px;
@@ -51,6 +53,11 @@
         linear-gradient(to right, #A7C7E7, #FFB347, #C3B1E1);
     background-origin: border-box;
     background-clip: content-box, border-box;
+}
+
+.profile-image.collapsed {
+    width: 60px;
+    height: 60px;
 }
 
 .profile-image-overlay {
@@ -71,6 +78,10 @@
     border-radius: 50%;
     color: white;
     font-size: 1.5rem;
+}
+
+.profile-image-overlay.collapsed {
+    font-size: 1rem;
 }
 
 .profile-image-container:hover .profile-image-overlay {

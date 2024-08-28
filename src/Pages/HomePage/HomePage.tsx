@@ -15,6 +15,8 @@ function HomePage() {
     const [group, setGroup] = useState<groupClient.Group | undefined>(undefined);
     // State to hold if a valid group was found from the param
     const [isValidGroup, setIsValidGroup] = useState(true);
+    // State to represent sidebar collapsing
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     // Determine which dashboard to render
     const DashboardToRender = groupId === 'default' || !isValidGroup ? DefaultDashboard : GroupDashboard;
     // Fetch the group viewing
@@ -36,13 +38,14 @@ function HomePage() {
 
     useEffect(() => {
         fetchGroup();
-    }, [fetchGroup]);
+        setIsSidebarCollapsed(DashboardToRender === GroupDashboard);
+    }, [fetchGroup, DashboardToRender]);
 
     return (
         <div className="main">
-            <div className="left-main">
-                <UserProfile />
-                <GroupList />
+            <div className={`left-main ${isSidebarCollapsed ? 'collapsed' : ''}`}>
+                <UserProfile collapsed={isSidebarCollapsed} />
+                <GroupList collapsed={isSidebarCollapsed} />
             </div>
             <div className="right-main">
                 {DashboardToRender === GroupDashboard ? (

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import UploadProfilePictureModal from "./UploadProfilePictureModalProps";
 
 // Component to represent the session user's profile on home page
-function UserProfile() {
+function UserProfile({ collapsed }: { collapsed: boolean }) {
     const navigate = useNavigate();
     // State to hold basic user information
     const [sessionProfile, setSessionProfile] = useState<userClient.User>();
@@ -97,10 +97,11 @@ function UserProfile() {
     }
 
     return (
-        <div className="user-profile-container">
-            <div className="user-profile-header">
-                <FaUserAltSlash className="logout-icon" onClick={handleSignOutClick} />
-            </div>
+        <div className={`user-profile-container ${collapsed ? 'collapsed' : ''}`}>
+            {!collapsed && (
+                <div className="user-profile-header">
+                    <FaUserAltSlash className="logout-icon" onClick={handleSignOutClick} />
+                </div>)}
             <div className="user-profile-content">
                 <div
                     className="profile-image-container"
@@ -110,10 +111,10 @@ function UserProfile() {
                     <img
                         src={profilePic ? profilePic : defaultProfilePicUrl}
                         alt="Profile"
-                        className="profile-image"
+                        className={`profile-image ${collapsed ? 'collapsed' : ''}`}
                     />
                     {isHovering && (
-                        <div className="profile-image-overlay" onClick={handleEditProfilePicture}>
+                        <div className={`profile-image-overlay ${collapsed ? 'collapsed' : ''}`} onClick={handleEditProfilePicture}>
                             <FaPen />
                         </div>
                     )}

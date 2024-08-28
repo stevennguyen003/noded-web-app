@@ -20,6 +20,26 @@ hr {
     width: 250px;
     flex-shrink: 0;
     padding: 25px;
+    transition: width 0.5s ease, padding 0.5s ease;
+    overflow: hidden;
+}
+
+.left-main.collapsed {
+    width: 100px;
+    padding: 10px 10px;
+}
+
+.left-main.collapsed .profile-full-name,
+.left-main.collapsed .profile-username,
+.left-main.collapsed .group-list-header-container,
+.left-main.collapsed .group-header-name {
+    display: none;
+    transition: display 0.5s ease;
+}
+
+.left-main.collapsed .profile-picture,
+.left-main.collapsed .group-profile-image {
+    margin-right: 0;
 }
 
 .personal {
