@@ -8,6 +8,7 @@
     flex-direction: column;
     position: relative;
     flex-shrink: 0;
+    transition: height 0.5s ease;
 }
 
 .user-profile-container.collapsed {
@@ -38,6 +39,14 @@
     flex-grow: 1;
 }
 
+.hr {
+    height: 3px;
+    width: 100%;
+    background-color: rgb(180, 180, 180);
+    border-radius: 15px;
+    margin-top: 5px;
+}
+
 .profile-image-container {
     position: relative;
     display: inline-block;
@@ -53,11 +62,12 @@
         linear-gradient(to right, #A7C7E7, #FFB347, #C3B1E1);
     background-origin: border-box;
     background-clip: content-box, border-box;
+    transition: height 0.5s ease, width 0.5s ease;
 }
 
 .profile-image.collapsed {
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
 }
 
 .profile-image-overlay {

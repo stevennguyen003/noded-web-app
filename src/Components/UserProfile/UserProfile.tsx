@@ -102,7 +102,7 @@ function UserProfile({ collapsed }: { collapsed: boolean }) {
                 <div className="user-profile-header">
                     <FaUserAltSlash className="logout-icon" onClick={handleSignOutClick} />
                 </div>)}
-            <div className="user-profile-content">
+            <div className={`user-profile-content ${collapsed ? 'collapsed' : ''}`}>
                 <div
                     className="profile-image-container"
                     onMouseEnter={() => setIsHovering(true)}
@@ -121,6 +121,7 @@ function UserProfile({ collapsed }: { collapsed: boolean }) {
                 </div>
                 <h3 className="profile-full-name">{sessionProfile?.firstName} {sessionProfile?.lastName}</h3>
                 <small className="profile-username">@{sessionProfile?.username}</small>
+                {collapsed && <div className="hr"></div>}
             </div>
             <UploadProfilePictureModal
                 isOpen={isModalOpen}

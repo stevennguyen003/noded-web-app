@@ -132,17 +132,18 @@ function GroupList({ collapsed }: { collapsed: boolean }) {
                 <h3>Groups</h3>
                 <FaPlus onClick={handleCreateGroup} style={{ cursor: 'pointer' }} />
             </div>
-            <div className="group-list-body-container">
+            <div className={`group-list-body-container ${collapsed ? 'collapsed' : ''}`}>
                 {groups.map((group) => (
                     <Link to={`/home/${group._id}`} key={group._id} className={`group-header-container ${collapsed ? 'collapsed' : ''}`}>
                         <div>
                             <img
                                 src={defaultGroupProfilePicUrl}
                                 alt="Group Profile"
-                                className="group-profile-image"
+                                className={`group-profile-image ${collapsed ? 'collapsed' : ''}`}
                             />
                             <span className="group-header-name">{group.name}</span>
                         </div>
+                        {collapsed && <div className="group-name-popup">{group.name}</div>}
                     </Link>
                 ))}
             </div>
